@@ -13,6 +13,9 @@ router.get('/', (req, res) => {
 // Rutas para los productos (base path: /api/products)
 // router.use('/products', productRoutes)
 
+//Rutas para el inventario
+router.use('/inventory', inventoryRoutes)
+
 // Rutas para los pedidos (base path: /api/orders)
 // router.use('/orders', orderRoutes)
 
