@@ -1,0 +1,70 @@
+.container-login {
+  padding: 2%;
+   font-family: Arial, sans-serif;
+   color: white;
+  width: 60%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  background-color: #0f0f0f;
+  align-items: center;
+  justify-content: center;
+}
+
+h2 {
+  padding: 1% 2%;
+}
+
+form {
+  width: 60%;
+}
+
+.email {
+  font-family: 'Arial', 'Arial Narrow', sans-serif;
+  font-size: 18px;
+  color: black;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding: 0px 0px 30px 0px;
+}
+.email label{
+  color: white;
+}
+
+input {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  height: 30px;
+}
+
+.password {
+  font-family: 'Arial', 'Arial Narrow', sans-serif;
+  font-size: 18px;
+  color: black;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding: 0px 0px 30px 0px;
+}
+.password label {
+  color: white;
+}
+
+.login {
+  padding: 0px 0px 25px 0px;
+}
+
+button[type="submit"]{
+  width: 100%;
+  padding: 10px;
+  background-color: chocolate;
+  color: #fff;
+  border: none;
+  border-radius: 200px;
+  cursor: pointer;
+}
+.signUp {
+  padding: 0px 0px 25px 0px;
+}
