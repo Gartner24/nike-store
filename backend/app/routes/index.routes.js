@@ -1,4 +1,5 @@
 import express from 'express';
+import userRoutes from './user.routes';
 
 const router = express.Router();
 
@@ -8,7 +9,7 @@ router.get('/', (req, res) => {
 });
 
 // Rutas para los usuarios (base path: /api/users)
-// router.use('/users', userRoutes)
+router.use('/users', userRoutes)
 
 // Rutas para los productos (base path: /api/products)
 // router.use('/products', productRoutes)
