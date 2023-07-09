@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Login from '../components/auth/Login';
 import Home from '../containers/Home';
+import Carrusel from '../components/Carrusel';
 
 const AppRoutes = () => {
 	const [isAuth, setisAuth] = useState(false);
@@ -15,6 +16,8 @@ const AppRoutes = () => {
 				<Route path='/' element={<Home />} />
 
 				<Route path='/login' element={<Login />} />
+
+				<Route path='/Carrusel' element={<Carrusel />} />
 			</Routes>
 		</BrowserRouter>
 	);
