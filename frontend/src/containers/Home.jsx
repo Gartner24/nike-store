@@ -1,6 +1,7 @@
 import './css/home.css';
 import video from '../assets/inicio.mp4';
 import ProductCard from '../components/Productcard';
+import Advertisements from '../components/Advertisements';
 
 const Home = () => {
 	return (
@@ -10,12 +11,7 @@ const Home = () => {
 				Tu navegador no admite la reproducción de videos.
 			</video>
 			<p className='desliza'>Swipe down.</p>
-			<ProductCard
-				nombre='ARDIDAS GENERATION Z'
-				imagen='tenis1'
-				descripcion='producto hecho con materiales reciclados, comodos y ligeros.'
-				precio='4500'
-			/>
+			<Advertisements />
 		</div>
 	);
 };
