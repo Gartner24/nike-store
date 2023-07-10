@@ -1,11 +1,12 @@
-const express = require('express');
-const router = express.Router();
+import express from 'express';
 
+const inventoryRouter = express.Router();
 
-const Inventory = require('../app/models/inventory.model');
+import Inventory from '../models/inventory.model.js';
+
 
 //ruta GET para obener todos los elementos del inventario
-router.get('/inventory', async (req, res) => {
+inventoryRouter.get('/', async (req, res) => {
   try {
     const inventory = await Inventory.findAll();
     res.json(inventory);
@@ -16,7 +17,7 @@ router.get('/inventory', async (req, res) => {
 });
 
 //ruta GET para obtener un elemento específico del inventario por su ID
-router.get('/inventory/:id', async (req, res) => {
+inventoryRouter.get('/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const item = await Inventory.findByPk(id);
@@ -32,7 +33,7 @@ router.get('/inventory/:id', async (req, res) => {
 });
 
 //ruta POST para agregar un nuevo elemento al inventario
-router.post('/inventory', async (req, res) => {
+inventoryRouter.post('/', async (req, res) => {
   const { name, quantity, price } = req.body;
   try {
     const newItem = await Inventory.create({ name, quantity, price });
@@ -44,7 +45,7 @@ router.post('/inventory', async (req, res) => {
 });
 
 // ruta PUT para actualizar un elemento del inventario por su ID
-router.put('/inventory/:id', async (req, res) => {
+inventoryRouter.put('/:id', async (req, res) => {
   const { id } = req.params;
   const { name, quantity, price } = req.body;
   try {
@@ -62,7 +63,7 @@ router.put('/inventory/:id', async (req, res) => {
 });
 
 // ruta DELETE para eliminar un elemento del inventario por su ID
-router.delete('/inventory/:id', async (req, res) => {
+inventoryRouter.delete('/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const item = await Inventory.findByPk(id);
@@ -78,4 +79,4 @@ router.delete('/inventory/:id', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default inventoryRouter;

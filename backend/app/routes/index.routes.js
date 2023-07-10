@@ -1,5 +1,5 @@
 import express from 'express';
-import inventoryRoutes from './inventory.routes';
+import inventoryRoutes from './inventory.routes.js';
 
 const router = express.Router();
 

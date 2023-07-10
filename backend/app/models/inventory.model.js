@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/db/database'); // Asegúrate de que la ruta sea correcta para tu configuración
+import { DataTypes } from 'sequelize';
+import sequelize from '../../config/db/database.js';
 
 const Inventory = sequelize.define('inventory', {
   inventoryID: {
@@ -26,4 +26,4 @@ const Inventory = sequelize.define('inventory', {
   },
 });
 
-module.exports = Inventory;
+export default Inventory;
