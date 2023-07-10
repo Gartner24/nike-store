@@ -1,8 +1,8 @@
 import express from 'express';
-import inventoryRoutes from './inventory.routes.js';
 import userRoutes from './user.routes.js';
 import cartRouter from './cart.routes.js';
 import productRouter from './products.routes.js';
+import inventoryRouter from './inventory.routes.js';
 
 const router = express.Router();
 
@@ -18,7 +18,7 @@ router.use('/users', userRoutes)
 router.use('/products', productRouter)
 
 // Rutas para el inventario (base path: /api/inventory)
-router.use('/inventory', inventoryRoutes);
+router.use('/inventory', inventoryRouter);
 
 // Rutas para los pedidos (base path: /api/orders)
 // router.use('/orders', orderRoutes)

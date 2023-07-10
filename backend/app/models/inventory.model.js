@@ -1,29 +1,37 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../../config/db/database.js';
+import Product from './product.models.js'
 
-const Inventory = sequelize.define('inventory', {
+const Inventory = sequelize.define('Inventory', {
   inventoryID: {
     type: DataTypes.INTEGER,
-    allowNull: false,
     primaryKey: true,
-    autoIncrement: true,
+    autoIncrement: true
   },
   productID: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    unique: true,
+    references: {
+      model: Product,
+      key: 'productID'
+    }
   },
   quantity: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: false
   },
   stockMin: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: false
   },
   stockMax: {
     type: DataTypes.INTEGER,
-    allowNull: false,
-  },
+    allowNull: false
+  }
+}, {
+  tableName: 'inventory',
+  timestamps: false,
 });
 
 export default Inventory;
