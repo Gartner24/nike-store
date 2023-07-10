@@ -31,7 +31,7 @@ CREATE TABLE inventory (
     stockMax INT NOT NULL,
     CONSTRAINT `PK_inventoryID` PRIMARY KEY (inventoryID),
     CONSTRAINT `FK_productID_inventory` FOREIGN KEY (productID) REFERENCES products(productID)
-)
+);
 
 CREATE TABLE shoppingCart (
     cartID INT AUTO_INCREMENT,
