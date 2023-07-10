@@ -47,8 +47,7 @@ cartRouter.get('/user/:userID', async (req, res) => {
 
     // Obtener los productos en el carrito del usuario
     const cartItems = await ShoppingCart.findAll({
-      where: { userID },
-      include: [{ model: Product }]
+      where: { userID }
     });
 
     res.status(200).json({ cartItems });
