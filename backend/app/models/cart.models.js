@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
-import sequelize from '../config/database';
-import User from './user';
-import Product from './product';
+import sequelize from '../../config/db/database.js';
+import User from './user.models.js';
+import Product from './product.models.js';
 
 const ShoppingCart = sequelize.define('ShoppingCart', {
   cartID: {

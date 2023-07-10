@@ -1,12 +1,12 @@
 import express from 'express';
-import ShoppingCart from '../models/shoppingCart';
-import User from '../models/user';
-import Product from '../models/product';
+import ShoppingCart from '../models/cart.models.js';
+import User from '../models/user.models.js';
+import Product from '../models/product.models.js';
 
-const router = express.Router();
+const cartRouter = express.Router();
 
 // Agregar un producto al carrito
-router.post('/add', async (req, res) => {
+cartRouter.post('/add', async (req, res) => {
   try {
     const { userID, productID, quantity } = req.body;
 
@@ -34,7 +34,7 @@ router.post('/add', async (req, res) => {
 });
 
 // Obtener el carrito de un usuario
-router.get('/user/:userID', async (req, res) => {
+cartRouter.get('/user/:userID', async (req, res) => {
   try {
     const userID = req.params.userID;
 
@@ -59,7 +59,7 @@ router.get('/user/:userID', async (req, res) => {
 });
 
 // Actualizar la cantidad de un producto en el carrito
-router.put('/:cartID', async (req, res) => {
+cartRouter.put('/:cartID', async (req, res) => {
   try {
     const cartID = req.params.cartID;
     const { quantity } = req.body;
@@ -82,7 +82,7 @@ router.put('/:cartID', async (req, res) => {
 });
 
 // Eliminar un producto del carrito
-router.delete('/:cartID', async (req, res) => {
+cartRouter.delete('/:cartID', async (req, res) => {
   try {
     const cartID = req.params.cartID;
 
@@ -103,4 +103,4 @@ router.delete('/:cartID', async (req, res) => {
   }
 });
 
-export default router;
+export default cartRouter;
