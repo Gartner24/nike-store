@@ -4,14 +4,16 @@ import axios from 'axios';
 
 const ProductList = () => {
 	const [products, setProducts] = useState([]);
+	const [loading, setLoading] = useState(true);
 
-  
+  const url = 'http://localhost:8080'
 
 	useEffect(() => {
 		axios
-			.get('http://localhost:8080/api/products')
+			.get(`${url}/api/products`)
 			.then((res) => {
 				setProducts(res.data);
+				setLoading(false);
         console.log(res.data)
 			})
 			.catch((err) => {
@@ -19,20 +21,30 @@ const ProductList = () => {
 			});
 	}, []);
 
+	if (loading) {
+		return (
+			<>
+				{/* Spinner */}
+				<h1>Cargando...</h1>
+			</>
+		);
+	}
+
 	return (
 		<div className='container-items'>
-			{/* {data.map((product) => (
-				<div className='item' key={product.id}>
+			{products?.map((product) => (
+				<div className='item' key={product.productID}>
 					<figure>
-						<img src={product.img} alt={product.nameProduct} />
+						{/* <img src={product.img} alt={product.nameProduct} /> */}
 					</figure>
 					<div className='info-product'>
-						<h2>{product.nameProduct}</h2>
+						<h2>{product.productName}</h2>
+						<p className='description'>${product.description}</p>
 						<p className='price'>${product.price}</p>
 						<button>Añadir al carrito</button>
 					</div>
 				</div>
-			))} */}
+			))}
 		</div>
 	);
 };
