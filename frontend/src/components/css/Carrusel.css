@@ -1,7 +1,17 @@
-img {
+.carrusel img {
+    
     max-width: 500px;
     max-height: 500px;
 }
-
-
-  
+.description{
+    color: gray;
+    margin: 5%;
+}
+.price {
+    color: chocolate;
+    margin: 5%;
+}
+.title {
+    margin-left: 3%;
+    color: black;
+}
