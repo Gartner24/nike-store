@@ -1,3 +1,14 @@
+MECANICA DEL FUNCIONAMIENTO DE LA PÁGINA FACTURE: 
+
+Realmente lo que ocurre es que en el archivo "Facture.jsx" se recibe la importacion del Array de Productos y el Objeto cliente
+Con esta informacion, se imprime un mensaje en la pagina web en donde es un leve texto y una tabla que contiene la informacion de los diversos productos. 
+
+Es IMPORTANTE que tenga a consideración que las funciones empleadas en "Facture.jsx" NECESITAN recibir las importaciones de los productos (array) y el cliente (objeto)
+
+
+-----------------------------------------------------------
+
+
 1. PÁGINA DE FACTURE ("Facture.jsx")
 
 Es el archivo llamado "Facture.jsx"
