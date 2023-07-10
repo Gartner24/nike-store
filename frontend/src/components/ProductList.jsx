@@ -1,7 +1,10 @@
 import React from "react";
 import { data } from "../data";
 
-const ProductList = () => {
+const ProductList = ({onAddToCart}) => {
+  const addToCart = (product) => {
+    onAddToCart(product);
+  };
   return (
     <div className="container-items">
       {data.map(product => (
@@ -12,7 +15,7 @@ const ProductList = () => {
           <div className="info-product">
             <h2>{product.nameProduct}</h2>
             <p className='price'>${product.price}</p>
-            <button>Añadir al carrito</button>
+            <button onClick={() => addToCart(product)}>Añadir al carrito</button>
           </div>
         </div>
       ))}
@@ -21,3 +24,5 @@ const ProductList = () => {
 };
 
 export default ProductList;
+
+

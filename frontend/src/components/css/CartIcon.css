@@ -1,0 +1,8 @@
+.cart-icon {
+    font-size: 24px; /* Tamaño del icono */
+    transition: transform 0.3s; /* Transición para el efecto hover */
+  }
+  
+  .cart-icon:hover {
+    transform: scale(1.2); /* Escala del icono en el efecto hover */
+  }
