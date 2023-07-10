@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 
-const Inventory = require('../app/models/inventory.model.js');
+const Inventory = require('../app/models/inventory.model');
 
 //ruta GET para obener todos los elementos del inventario
 router.get('/inventory', async (req, res) => {

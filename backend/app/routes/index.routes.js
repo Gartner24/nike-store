@@ -1,4 +1,5 @@
 import express from 'express';
+import inventoryRoutes from './inventory.routes';
 
 const router = express.Router();
 
@@ -13,8 +14,8 @@ router.get('/', (req, res) => {
 // Rutas para los productos (base path: /api/products)
 // router.use('/products', productRoutes)
 
-//Rutas para el inventario
-router.use('/inventory', inventoryRoutes)
+// Rutas para el inventario (base path: /api/inventory)
+router.use('/inventory', inventoryRoutes);
 
 // Rutas para los pedidos (base path: /api/orders)
 // router.use('/orders', orderRoutes)
