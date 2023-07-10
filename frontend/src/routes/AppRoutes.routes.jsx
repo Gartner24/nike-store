@@ -5,6 +5,7 @@ import Login from '../components/auth/Login';
 import Home from '../containers/Home';
 import Advertisements from '../components/Advertisements';
 import Carrusel from '../components/Carrusel';
+import Footer from '../components/Footer';
 
 const AppRoutes = () => {
 	const [isAuth, setisAuth] = useState(false);
@@ -18,10 +19,10 @@ const AppRoutes = () => {
 
 				<Route path='/login' element={<Login />} />
 
-				<Route path='/Carrusel' element={<Carrusel />} />
-
-				<Route path='/' element={<Carrusel />} />
+				
 			</Routes>
+
+			<Footer />
 		</BrowserRouter>
 	);
 };
