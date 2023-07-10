@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Login from '../components/auth/Login';
 import Home from '../containers/Home';
+import Advertisements from '../components/Advertisements';
 import Carrusel from '../components/Carrusel';
 
 const AppRoutes = () => {
@@ -17,7 +18,11 @@ const AppRoutes = () => {
 
 				<Route path='/login' element={<Login />} />
 
+				<Route path='/Advertisements' element={<Advertisements />} />
+
 				<Route path='/Carrusel' element={<Carrusel />} />
+
+				<Route path='/' element={<Carrusel />} />
 			</Routes>
 		</BrowserRouter>
 	);
