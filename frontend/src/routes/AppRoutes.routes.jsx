@@ -16,6 +16,7 @@ const AppRoutes = () => {
 
 				<Route path='/login' element={<Login />} />
 			</Routes>
+			<Footer/>
 		</BrowserRouter>
 	);
 };
