@@ -31,7 +31,7 @@ orderRouter.post('/', async (req, res) => {
 		}
 
 		// Llamar al controlador de Stripe y abrir el enlace de pago
-		const paymentLinkResponse = await openStripePaymentLink(activeCarts, totalPrice, userID);
+		const paymentLinkResponse = await openStripePaymentLink(activeCarts, totalPrice, userID, shippingAddress);
 
 		if (paymentLinkResponse.url !== undefined) {
 			// Enviar el enlace de pago al cliente

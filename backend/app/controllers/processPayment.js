@@ -75,7 +75,7 @@ dotenv.config();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // Controlador para abrir un enlace de pago con Stripe
-const openStripePaymentLink = async (carts, totalPrice, userID) => {
+const openStripePaymentLink = async (carts, totalPrice, userID, shippingAddress) => {
 	const products = [];
 
 	for (const cart of carts) {
@@ -101,7 +101,7 @@ const openStripePaymentLink = async (carts, totalPrice, userID) => {
 			payment_method_types: ['card'],
 			line_items: products,
 			mode: 'payment',
-			success_url: `http://localhost:8080/api/success?userID=${userID}&totalPrice=${totalPrice}`,
+			success_url: `http://localhost:8080/api/success?userID=${userID}&totalPrice=${totalPrice}&shippingAddress=${shippingAddress}`,
 			cancel_url: 'http://localhost:8080/api/cancel',
 		});
 
