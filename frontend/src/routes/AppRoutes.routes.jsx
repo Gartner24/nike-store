@@ -9,6 +9,7 @@ import Store from '../containers/ProductPage';
 import About from '../components/AboutNike';
 import Dashboard from '../components/Dashboard';
 import ProductPage from '../containers/ProductPage';
+import Error404 from '../components/PageNotFound';
 
 const AppRoutes = () => {
 	const [isAuth, setisAuth] = useState(false);
@@ -31,6 +32,8 @@ const AppRoutes = () => {
 				<Route path='/Dashboard' element={<Dashboard />} />
 				
 				<Route path='/product/:id' element={<ProductPage />} />
+
+				<Route path='/*' element={<Error404 />} />
 
 			</Routes>
 
