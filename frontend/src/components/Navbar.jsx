@@ -11,22 +11,24 @@ const Navbar = () => {
 		<div className='App'>
 			<header className='App-menu'>
 				<div className='options'>
-					<img src={logo} alt='Logo' className='logo' />
+					<a href='/'><img src={logo} alt='Logo' className='logo' /></a>
 					<div className='options'>
-						<Link to='/'>
+						<Link to='/store'>
 							<p className='option-1'>
 								<span className='material-symbols-outlined'>
 									store
 								</span>
 								store
 							</p>
-						</Link>
+						</Link >
+						<Link to='/About'>
 						<p className='option-2'>
 							<span className='material-symbols-outlined'>
 								info
 							</span>
 							About
 						</p>
+						</Link>
 						<Link to='/login'>
 							<p className='option-3'>
 								<span className='material-symbols-outlined'>

@@ -37,7 +37,7 @@ function Carrusel() {
   
     return (
       <div className='carousel-wrapper'>
-        <h1>Choose one:</h1>
+        <h1 className="title">Choose one:</h1>
         <Carousel responsive={responsive} ssr={true} infinite={true}>
           {products.map((product, index) => (
             <div className="slide" key={index}>
