@@ -1,34 +1,27 @@
-import React from "react";
+
+import React, { useState } from "react";
 import { data } from "../data";
 import "./css/ProductList.css";
 
 const ProductList = () => {
-	const [products, setProducts] = useState([]);
-	const [loading, setLoading] = useState(true);
-
-  const url = 'http://localhost:8080'
-
-	useEffect(() => {
-		axios
-			.get(`${url}/api/products`)
-			.then((res) => {
-				setProducts(res.data);
-				setLoading(false);
-        console.log(res.data)
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	}, []);
-
-	if (loading) {
-		return (
-			<>
-				{/* Spinner */}
-				<h1>Cargando...</h1>
-			</>
-		);
-	}
+	const [products, setProducts] = useState([{ 
+		productID: 1,
+		productName: 'Zapatos',
+		description: 'descrpasdasd',
+		price: 200,
+	 },
+	 { 
+		productID: 2,
+		productName: 'Zapatos2',
+		description: 'descrpasdasd',
+		price: 200,
+	 },
+	 { 
+		productID: 3,
+		productName: 'Zapatos3',
+		description: 'descrpasdasd',
+		price: 200,
+	 }]);
 
 	return (
 		<div className='container-items'>

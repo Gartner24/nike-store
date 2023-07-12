@@ -8,7 +8,6 @@ import SignUp from '../components/auth/Signup';
 import Store from '../containers/ProductPage';
 import About from '../components/AboutNike';
 import Dashboard from '../components/Dashboard';
-import Product from '../components/Product';
 
 const AppRoutes = () => {
 	const [isAuth, setisAuth] = useState(false);
@@ -20,17 +19,15 @@ const AppRoutes = () => {
 			<Routes>
 				<Route path='/' element={<Home />} />
 
-				<Route path='/about' element={<About />} />
+				<Route path='/About' element={<About />} />
 
-				<Route path='/store' element={<Store />} />
-
-				<Route path='/product' element={<Product />} />
+				<Route path='/Store' element={<Store />} />
 
 				<Route path='/login' element={<Login />} />
 
-				<Route path='/signUp' element={<SignUp />} />
+				<Route path='/SignUp' element={<SignUp />} />
 
-				<Route path='/dashboard' element={<Dashboard />} />
+				<Route path='/Dashboard' element={<Dashboard />} />
 
 			</Routes>
 

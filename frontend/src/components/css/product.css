@@ -10,21 +10,16 @@
     color: white;
 }
 
-img {
-    width: 30%;
-}
-
 .image {
     margin: 2% 4%;
-    width: 60%;
-    padding: 0 20%;
+    max-width: 60%;
 }
 
 .ProductInfo {
     display: flex;
     flex-direction: column;
     padding: 0 4%;
-    width: 100%;
+    max-width: 600px;
     background-color: rgb(231, 62, 62);
 }
 
