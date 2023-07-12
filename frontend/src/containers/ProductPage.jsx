@@ -5,6 +5,7 @@ import './css/ProductPage.css';
 import ProductCard from '../components/ProductCard';
 import Carrusel from '../components/Carrusel';
 
+
 const ProductPage = () => {
   const products = [
     {
@@ -81,6 +82,7 @@ const ProductPage = () => {
   ];
 
   return (
+	<>
     <div>
 		<Carrusel />
       <div className="row">
@@ -96,6 +98,7 @@ const ProductPage = () => {
         ))}
       </div>
     </div>
+	</>
   );
 };
 
