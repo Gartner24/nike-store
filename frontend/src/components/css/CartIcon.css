@@ -6,3 +6,10 @@
   .cart-icon:hover {
     transform: scale(1.2); /* Escala del icono en el efecto hover */
   }
+
+/*Make the icon responsive*/
+@media screen and (max-width: 500px) {
+  .cart-icon {
+    font-size: 20px;
+  }
+}
