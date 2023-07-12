@@ -5,19 +5,11 @@
     left: 0;
     width: 100%;
     object-fit: cover;
-    opacity: 80%;
-  }
-  
-  .desliza{
-    margin-top: 50%;
-    position: absolute;
-    display: absolute;
   }
   .app-menu {
     z-index: 2;
     flex-direction: row;
     display: flex;
-    padding: 30%;
     
   }
   .options {

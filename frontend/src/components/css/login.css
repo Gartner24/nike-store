@@ -2,13 +2,19 @@
   padding: 2%;
    font-family: Arial, sans-serif;
    color: white;
-  width: 60%;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
   background-color: #0f0f0f;
-  align-items: center;
-  justify-content: center;
+    font-family: Arial, sans-serif;
+    color: white;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    background-color: #0f0f0f;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+  margin-left: 30%;
+  border-radius: 2em;
+
 }
 
 h2 {
@@ -16,7 +22,7 @@ h2 {
 }
 
 form {
-  width: 60%;
+  width: 90%;
 }
 
 .email {
