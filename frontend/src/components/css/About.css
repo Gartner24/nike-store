@@ -1,40 +1,113 @@
-.About {
-    background-color: #f9f9f9;
-  }
+.about-main-container{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.about-video-container {
+
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  background-color: black;
+
+  position: relative;
+
+  opacity: 0; /* Inicialmente, los contenedores estarán ocultos */
+  animation: fade 1s ease-in-out forwards; /* Duración de la animación y función de tiempo */
+
+}
+
+
+.about-video{
+  z-index: 0;
+}
+
+.about-video-overlay {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo negro con transparencia */
+}
+
+.about-tittle{
+  z-index: 2;
+  color: white;
+  font-size: 5vh;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  padding-top: 5%;
   
-  .About-title {
-    font-size: 24px;
-    text-align: center;
-    margin-bottom: 16px;
+}
+/* ------------------- VISION -----------------------*/ 
+.about-vision{
+  display: flex;
+  padding: 1%;
+  font-size: 10vh;
+  align-items: center;
+  transition: transform 0.3s ease-in;
+  background-color: rgb(0, 0, 0, 0.950);
+  color: white;
+
+
+}
+.about-vision:hover{
+  transform: scale(1.01);
+  cursor: pointer;
+  background-color: rgb(0, 0, 0, 0.925);
+}
+
+.about-vision-tittle{
+  text-align: center;
+}
+
+.about-vision-body{
+  font-size: 3vh;
+  padding-left: 5%;
+}
+
+/* ------------------- MISSION -----------------------*/ 
+.about-mission{
+  display: flex;
+  padding: 1%;
+
+  font-size: 10vh;
+  align-items: center;
+  transition: transform 0.3s ease-in;
+  background-color: rgb(0, 0, 0, 0.925);
+  color: white;
+
+}
+.about-mission:hover{
+  transform: scale(1.01);
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.950);
+}
+
+.about-mission-tittle{
+  text-align: center;
+  padding-right: 2%;
+}
+
+.about-mission-body{
+  font-size: 3vh;
+  padding-right: 2%;
+}
+
+
+
+@keyframes fade {
+  from {
+    opacity: 0; /* Comienzo de la animación con opacidad 0 */
+    transform: translateY(20px); /* Puedes ajustar la animación de desplazamiento vertical si lo deseas */
   }
-  
-  .About-body {
-    margin-top: 24px;
+  to {
+    opacity: 1; /* Final de la animación con opacidad 1 */
+    transform: translateY(0); /* Puedes ajustar la animación de desplazamiento vertical si lo deseas */
   }
-  
-  .text {
-    font-size: 18px;
-    margin-bottom: 12px;
-  }
-  
-  .About-vision-text,
-  .About-objective-text {
-    font-size: 16px;
-    line-height: 1.5;
-    color: #a39c9c;
-    margin-bottom: 24px;
-  }
-  .About-title, .text {
-    color: rgb(255, 255, 255);
-  }
-  .About-title{
-    font-size: 300%;
-  }
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
+}

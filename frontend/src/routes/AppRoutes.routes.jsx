@@ -28,7 +28,7 @@ const AppRoutes = () => {
 				<Route path='/SignUp' element={<SignUp />} />
 
 				<Route path='/Dashboard' element={<Dashboard />} />
-
+				
 			</Routes>
 
 			<Footer />
