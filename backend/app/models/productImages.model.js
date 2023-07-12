@@ -25,3 +25,5 @@ const ProductImage = sequelize.define('ProductImage', {
     tableName: 'productsImages',
     timestamps: false,
 });
+
+export default ProductImage;

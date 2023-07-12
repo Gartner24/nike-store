@@ -34,8 +34,6 @@ productRouter.get('/:productID', async (req, res) => {
   }
 });
 
-const ProductImage = require('../models/productImages.model'); // Assuming you have a Sequelize model for the ProductImage table
-
 // Create a new product and its associated inventory
 productRouter.post('/', async (req, res) => {
   try {
