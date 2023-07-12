@@ -6,7 +6,6 @@ import Inventory from '../models/inventory.model.js';
 const paymentRouter = express.Router();
 
 // Ruta para procesar el pago (http://localhost:8080/api/success)
-// Ruta para procesar el pago (http://localhost:8080/api/success)
 paymentRouter.get('/success', async (req, res) => {
 	try {
 		const { totalPrice, userID } = req.query; // Utilizamos req.query en lugar de req.body para obtener los parámetros enviados desde la pasarela de pago
@@ -24,15 +23,12 @@ paymentRouter.get('/success', async (req, res) => {
 			}
 		);
 		const shippingAddress = 'Calle 123';
-		console.log('PRUEBA 2');
 		// Crear la orden en la base de datos
 		const order = await Order.create({
 			userID,
 			totalPrice,
 			shippingAddress,
 		});
-
-		console.log('PRUEBA 3');
 		// 3.1.1 Actualizar el inventario restando la cantidad vendida
 		for (const cart of activeCarts) {
 			const inventory = await Inventory.findOne({
