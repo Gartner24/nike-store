@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { data } from "../data";
+import { products } from "../data";
 import "./css/ProductList.css";
 
 const ProductList = () => {
