@@ -1,8 +1,6 @@
 import express from 'express';
 import Product from '../models/product.models.js';
 import Inventory from '../models/inventory.model.js';
-import ProductImage from '../models/productImages.model.js';
-import cloudinary from '../controllers/cloudinary.js';
 
 const productRouter = express.Router();
 
@@ -34,119 +32,53 @@ productRouter.get('/:productID', async (req, res) => {
   }
 });
 
-const ProductImage = require('../models/productImages.model'); // Assuming you have a Sequelize model for the ProductImage table
-
-// Create a new product and its associated inventory
+// Crear un nuevo producto y su inventario asociado
 productRouter.post('/', async (req, res) => {
-  try {
-    const { productName, description, price } = req.body;
-    const imageFile = req.file; // Assuming the file field in the request is named 'image'
-
-    if (!imageFile) {
-      return res.status(400).json({ message: 'No image file provided' });
-    }
-
-    // Upload the image to Cloudinary
-      cloudinary.uploader.upload(imageFile.path, { folder: 'product-images' }, async (error, result) => {
-      if (error) {
-        console.log('Error uploading image to Cloudinary:', error);
-        return res.status(500).json({ message: 'Error uploading image to Cloudinary' });
-      }
-    /* // Upload the image to Cloudinary with specified height and width
-    cloudinary.uploader.upload(imageFile.path,{
-        folder: 'product-images',
-        transformation: [
-          { width: 800, height: 600, crop: 'fill' },
-          // Additional transformations can be added here if needed
-        ],
-      },
-      async (error, result) => {
-        if (error) {
-          console.log('Error uploading image to Cloudinary:', error);
-          return res.status(500).json({ message: 'Error uploading image to Cloudinary' });
-        } */
-
-
-      console.log('Upload result:', result);
-
-      const imageURL = result.secure_url;
-
+    try {
+      const { productName, description, price } = req.body;
+  
       const product = await Product.create({
         productName,
         description,
         price
       });
-
-      // Create a new ProductImage record in the database
-      await ProductImage.create({
-        productID: product.productID,
-        isFront: 1, // Assuming it's the front image
-        imageURL
-      });
-
+  
       await Inventory.create({
         productID: product.productID,
-        quantity: 1,
-        stockMin: 0,
-        stockMax: 200
+        quantity: 1, // Cantidad inicial del inventario
+        stockMin: 0, // Stock mínimo inicial del inventario
+        stockMax: 200  // Stock máximo inicial del inventario
       });
+  
+      res.status(201).json({ message: 'Producto creado', product });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: 'Error al crear el producto' });
+    }
+  });
 
-      res.status(201).json({ message: 'Product created', product });
-    });
-  } catch (error) {
-    console.log('Error creating product:', error);
-    res.status(500).json({ message: 'Error creating product' });
-  }
-});
-
-
-// Update a product
+// Actualizar un producto
 productRouter.put('/:productID', async (req, res) => {
   try {
     const productID = req.params.productID;
     const { productName, description, price } = req.body;
-    const imageFile = req.file; // Assuming the file field in the request is named 'image'
 
     const product = await Product.findByPk(productID);
 
     if (!product) {
-      return res.status(404).json({ message: 'Product not found' });
+      return res.status(404).json({ message: 'Producto no encontrado' });
     }
 
-    // If an image file is uploaded, update the image in Cloudinary and save the new imageURL
-    if (imageFile) {
-      cloudinary.uploader.upload(imageFile.path, { folder: 'product-images' }, async (error, result) => {
-        if (error) {
-          console.log(error);
-          return res.status(500).json({ message: 'Error uploading image to Cloudinary' });
-        }
+    await product.update({
+      productName,
+      description,
+      price
+    });
 
-        const imageURL = result.secure_url;
-
-        await product.update({
-          productName,
-          description,
-          price
-        });
-
-        // Update the corresponding ProductImage record in the database
-        await ProductImage.update({ imageURL }, { where: { productID, isFront: 1 } });
-
-        res.status(200).json({ message: 'Product updated', product });
-      });
-    } else {
-      // If no image file is uploaded, update other product details without changing the imageURL
-      await product.update({
-        productName,
-        description,
-        price
-      });
-
-      res.status(200).json({ message: 'Product updated', product });
-    }
+    res.status(200).json({ message: 'Producto actualizado', product });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'Error updating product' });
+    res.status(500).json({ message: 'Error al actualizar el producto' });
   }
 });
 
