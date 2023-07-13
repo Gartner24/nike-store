@@ -3,6 +3,7 @@ import video from '../assets/inicio.mp4';
 import ProductList from '../components/ProductList';
 import Advertisements from '../components/Advertisements';
 import { products } from '../data';
+import CheckoutForm from '../components/FormPay';
 
 const Home = () => {
   // Obtén solo los primeros tres productos

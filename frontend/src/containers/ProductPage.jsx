@@ -6,11 +6,13 @@ import ProductCard from '../components/ProductCard';
 import Carrusel from '../components/Carrusel';
 import { products } from '../data';
 
+
 const ProductPage = () => {
 
 
 
   return (
+	<>
     <div>
 		<Carrusel />
       <div className="row">
@@ -28,6 +30,7 @@ const ProductPage = () => {
         ))}
       </div>
     </div>
+	</>
   );
 };
 
