@@ -82,7 +82,7 @@ const CheckoutForm = () => {
 
   const paymentElementOptions = {
     layout: "tabs"
-  }
+  };
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
@@ -101,5 +101,6 @@ const CheckoutForm = () => {
     </form>
   );
 }
+
 
 export default CheckoutForm;

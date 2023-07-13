@@ -9,15 +9,8 @@ const paymentRouter = express.Router();
 paymentRouter.get('/success', async (req, res) => {
 	try {
 		const { totalPrice, userID, shippingAddress } = req.query; // Utilizamos req.query en lugar de req.body para obtener los parámetros enviados desde la pasarela de pago
-		
-		// Crear la orden en la base de datos
-		const order = await Order.create({
-			userID,
-			totalPrice,
-			shippingAddress,
-		});
 
-		// 3.1.1 Actualizar el inventario restando la cantidad vendida
+		// Actualizar el inventario restando la cantidad vendida
 		const activeCarts = await ShoppingCart.findAll({
 			where: {
 			  userID,
@@ -32,8 +25,15 @@ paymentRouter.get('/success', async (req, res) => {
 
 			await inventory.decrement('quantity', { by: cart.quantity });
 		}
+
+		// Crear la orden en la base de datos
+		const order = await Order.create({
+			userID,
+			totalPrice,
+			shippingAddress,
+		});
 		
-		// 3 Si el pago es exitoso, cambiar el estado de los carritos a "Ordered" y crear la orden
+		// Si el pago es exitoso, cambiar el estado de los carritos a "Ordered" y crear la orden
 		await ShoppingCart.update(
 			{ cartStatus: 'Ordered' },
 			{
@@ -43,7 +43,12 @@ paymentRouter.get('/success', async (req, res) => {
 				},
 			}
 		);
+<<<<<<< HEAD
 
+=======
+		
+		// CLose the window
+>>>>>>> dd93cdbc926250d8c4ec3c9bf5a1f975ffb800d4
 		return res.status(200).json({ message: 'Pago exitoso', order });
 	} catch (error) {
 		console.log(error);
