@@ -1,27 +1,55 @@
 import React from "react";
 import "./css/About.css";
+import video from "../assets/AboutVideo.mp4"
+import video2 from "../assets/NIKE-Background.mp4"
 
 const About = () => {
     return (
-      <div className="About">
-        <div className="container">
-        <h1 className="About-title">
-          <strong>ABOUT US</strong>
-        </h1>
-  
-        <div className="About-body">
-          <h2 className="text">VISION</h2>
-          <p className="About-vision-text">
-            To be recognized as the leading brand in the world of tennis, offering products of the highest quality and innovative design that inspire and enhance the performance of athletes, both professionals and enthusiasts, at every step of their journey towards success.
-          </p>
-  
-          <h2 className="text">OBJECTIVE</h2>
-          <p className="About-objective-text">
-            Our goal is to be the preferred choice of tennis players worldwide, providing an exceptional experience through our products. We strive to be the brand chosen by the world's top athletes, collaborating closely with them to develop products that meet their needs and exceed their expectations. Additionally, we aim to expand our reach to new markets and consumer segments, fostering growth and passion for tennis across all ages and skill levels. Through excellence in quality, constant innovation, and an unwavering commitment to customer satisfaction, we endeavor to make every player feel more confident, comfortable, and competitive on the court.
-          </p>
+      <>
+
+      <div className="about-main-container">
+
+                <div className='about-video-container'>
+
+                        <video id="video" autoPlay muted loop className='about-video'>
+                            <source src={video} type='video/mp4'  />
+                        </video>
+
+                    <div className="about-tittle"> ABOUT US </div>  
+                    <div class="about-video-overlay"></div>
+                </div>
+
+                
+
+                <div className="about-vision">
+                    <div className="about-vision-tittle">VISION</div>
+                    <div className="about-vision-body">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid exercitationem hic illum, praesentium consectetur incidunt doloribus explicabo voluptatibus soluta labore, architecto officia sint doloremque, eligendi ut ipsa aperiam vero illo?
+                    </div>
+                </div>
+                
+
+
+                <div className='about-video-container'>
+                        <video id="video2" autoPlay muted loop className='about-video'>
+                            <source src={video2} type='video/mp4' />
+                        </video>
+                    <div class="about-video-overlay"></div>
+                </div>
+
+
+
+                <div className="about-mission">
+                    <div className="about-mission-body">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid exercitationem hic illum, praesentium consectetur incidunt doloribus explicabo voluptatibus soluta labore, architecto officia sint doloremque, eligendi ut ipsa aperiam vero illo?
+                    </div>
+                    <div className="about-mission-tittle">MISION</div>
+                </div>
+
+
         </div>
-        </div>
-      </div>
+
+       </>
     );
   }
   
