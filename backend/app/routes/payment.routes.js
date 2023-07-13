@@ -43,12 +43,8 @@ paymentRouter.get('/success', async (req, res) => {
 				},
 			}
 		);
-<<<<<<< HEAD
 
-=======
-		
 		// CLose the window
->>>>>>> dd93cdbc926250d8c4ec3c9bf5a1f975ffb800d4
 		return res.status(200).json({ message: 'Pago exitoso', order });
 	} catch (error) {
 		console.log(error);
