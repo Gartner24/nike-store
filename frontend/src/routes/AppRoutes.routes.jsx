@@ -8,7 +8,8 @@ import SignUp from '../components/auth/Signup';
 import Store from '../containers/ProductPage';
 import About from '../components/AboutNike';
 import AdminDashboard from '../components/Dashboard';
-import Product from '../components/Product';
+import Error404 from '../components/PageNotFound';
+import Product from '../containers/Product';
 import PrivateRoutes from './Private.routes';
 import PublicRoutes from './Public.routes';
 import AdminRoutes from './Admin.routes';
@@ -22,6 +23,7 @@ const AppRoutes = () => {
 
 			<Routes>
 
+				<Route path='/' element={<Home />} />
 				<Route path='/home' element={<Home />} />
 
 				<Route path='/about' element={<About />} />
@@ -49,7 +51,8 @@ const AppRoutes = () => {
 					</AdminRoutes>
 				} />
 
-				<Route path='*' element={<h1>Not Found 404</h1>} />
+
+				<Route path='*' element={<Error404 />} />
 
 			</Routes>
 

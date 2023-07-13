@@ -1,27 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import './css/product.css';
 import { useParams } from 'react-router-dom';
-import { products } from '../data';
-import ProductCard from './ProductCard';
+import ProductCard from '../components/ProductCard';
 import { urlProducts, urlImages } from '../helpers/urls';
+import getData from '../helpers/getData';
 
 const Product = () => {
 	const [product, setProduct] = useState(null);
+	const [images, setImages] = useState([]);
+	const [frontImage, setFrontImage] = useState(null);
 	const [count, setCount] = useState(0);
 	const { id } = useParams();
 
-	const getProduct = () => {
-		const response = products.find((product) => Number(id) === product.productID);
+	const getImages = async (id) => {
+		const images = await getData(
+			'https://nike-fake-store.onrender.com/api/images/' + id
+		);
+		const isNotFrontImage = images.filter((image) => image.isFront === false);
+		setImages(isNotFrontImage);
+		setFrontImage(images.filter((image) => image.isFront === true)[0].imageURL);
+	};
 
-
-		setProduct(response);
+	const getProduct = async () => {
+		const productResponse = await getData(urlProducts + id);
+		setProduct(productResponse);
+		await getImages(productResponse.productID);
 	};
 
 	useEffect(() => {
 		getProduct();
-	}, []);
+		console.log(images);
 
-	console.log('Este es el producto:', product);
+	}, []);
 
 	return (
 		<>
@@ -35,7 +45,7 @@ const Product = () => {
 				<div className='Product'>
 					<ProductCard
 						id={product.id}
-						image={product.image}
+						image={frontImage}
 						name={product.name}
 						description={product.description}
 						price={product.price}
@@ -44,10 +54,19 @@ const Product = () => {
 						<h2>{product.name}</h2>
 						<p>{product.price}</p>
 						<p>{product.description}</p>
+
+						{images.map((image) => (
+							<img src={image.imageURL} alt={image.imageURL} />
+						))}
+
+
 						<div className='AddToCart'>
 							<div className='AddToCartCont'>
 								<span>{count}</span>
-								<button onClick={() => setCount(count - 1)} disabled={count === 0}>
+								<button
+									onClick={() => setCount(count - 1)}
+									disabled={count === 0}
+								>
 									-
 								</button>
 								<button onClick={() => setCount(count + 1)}>+</button>
