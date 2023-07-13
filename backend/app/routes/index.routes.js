@@ -6,6 +6,7 @@ import inventoryRouter from './inventory.routes.js';
 import ordersRouters from './orders.routes.js';
 import paymentRouter from './payment.routes.js';
 import productImageRouter from './productImages.routes.js';
+import authenticationRouter from './authentication/authentication.routes.js';
 
 const router = express.Router();
 
@@ -35,6 +36,8 @@ router.use('/orders', ordersRouters);
 router.use('/cart', cartRouter);
 
 // Rutas para el pago (base path: /api/payment)
-router.use('/', paymentRouter);
+router.use('/payment', paymentRouter);
+
+router.use('/authentication', authenticationRouter)
 
 export default router;

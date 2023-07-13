@@ -1,9 +1,13 @@
 import React from 'react'
+import {Router} from 'react-router-dom'
 
-const Dashboard = () => {
+const DashboardRoutes = () => {
   return (
-    <div>Dashboard.routes</div>
+    <>
+        <Router>
+        </Router>
+    </>
   )
 }
 
-export default Dashboard.routes
+export default DashboardRoutes
