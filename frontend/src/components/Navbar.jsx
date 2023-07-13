@@ -11,9 +11,8 @@ import InfoIcon from '@mui/icons-material/Info';
 import HomeIcon from '@mui/icons-material/Home';
 import useStore from "../store/useStore";
 
-function UserNavbar() {
-  const isAuthenticated = useStore(state => state.isAuthenticated);
 
+function UserNavbar() {
   return (
     <header className="App-menu">
       <Link to="/">
@@ -37,7 +36,7 @@ function UserNavbar() {
             </Link>
           </li>
           <li>
-            <Link to="/" onClick={logout}>
+            <Link to="/">
               <LogoutIcon className="ico" />
             </Link>
           </li>
@@ -48,8 +47,6 @@ function UserNavbar() {
 }
 
 const AdminNavbar = () => {
-  const isAuthenticated = useStore(state => state.isAuthenticated);
-
   return (
     <header className="App-menu">
       <Link to="/">
@@ -78,7 +75,7 @@ const AdminNavbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/" onClick={logout}>
+            <Link to="/" >
               <LogoutIcon className="ico" />
             </Link>
           </li>
@@ -123,8 +120,8 @@ const UnregisteredNavbar = () => {
 }
 
 const Navbar = () => {
-  const isAuthenticated = useStore(state => state.isAuthenticated);
-  const isAdmin = useStore(state => state.isAdmin);
+  const [isAuthenticated, setIsAuthenticated] = React.useState(true);
+  const [isAdmin, setIsAdmin] = React.useState(false);
 
   if (isAuthenticated && isAdmin) {
     return <AdminNavbar />;

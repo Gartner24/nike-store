@@ -7,12 +7,13 @@ import Footer from '../components/Footer';
 import SignUp from '../components/auth/Signup';
 import Store from '../containers/ProductPage';
 import About from '../components/AboutNike';
-import AdminDashboard from '../components/Dashboard';
+import AdminDashboard from '../components/AdminDashboard';
 import Error404 from '../components/PageNotFound';
 import Product from '../containers/Product';
 import PrivateRoutes from './Private.routes';
 import PublicRoutes from './Public.routes';
 import AdminRoutes from './Admin.routes';
+import Profile from '../components/Profile';
 
 const AppRoutes = () => {
 	const [isAuthenticated, setisAuth] = useState(true);
@@ -50,7 +51,12 @@ const AppRoutes = () => {
 						<AdminDashboard />
 					</AdminRoutes>
 				} />
-
+				
+				<Route path='/profile' element={
+					<PrivateRoutes isAuth={isAuthenticated}>
+						<Profile />
+					</PrivateRoutes>
+				} />
 
 				<Route path='*' element={<Error404 />} />
 
