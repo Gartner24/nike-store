@@ -8,6 +8,8 @@ import SignUp from '../components/auth/Signup';
 import Store from '../containers/ProductPage';
 import About from '../components/AboutNike';
 import Dashboard from '../components/Dashboard';
+import ProductPage from '../containers/ProductPage';
+import Error404 from '../components/PageNotFound';
 import Product from '../components/Product';
 
 const AppRoutes = () => {
@@ -31,6 +33,8 @@ const AppRoutes = () => {
 				<Route path='/Dashboard' element={<Dashboard />} />
 
 				<Route path='/Product/:id' element={<Product />} />
+
+				<Route path='/*' element={<Error404 />} />
 
 			</Routes>
 
