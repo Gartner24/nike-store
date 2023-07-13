@@ -3,6 +3,7 @@ import './css/product.css';
 import { useParams } from 'react-router-dom';
 import { products } from '../data';
 import ProductCard from './ProductCard';
+import { urlProducts, urlImages } from '../helpers/urls';
 
 const Product = () => {
 	const [product, setProduct] = useState(null);

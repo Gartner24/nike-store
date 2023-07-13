@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./css/ProductList.css";
 import getData from "../helpers/getData";
-
-const urlProducts = "https://nike-fake-store.onrender.com/api/products";
-const urlImages = "https://nike-fake-store.onrender.com/api/images/";
+import { urlProducts, urlImages } from "../helpers/urls";
 
 const getImage = async (id) => {
 	const data = await getData(urlImages + id).then((data) => data[0].imageURL);
