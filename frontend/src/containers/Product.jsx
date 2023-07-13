@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './css/product.css';
 import { useParams } from 'react-router-dom';
-import { urlProducts, urlImages } from '../helpers/urls';
+import { urlProducts, urlImages, urlCart } from '../helpers/urls';
 import getData from '../helpers/getData';
 import postData from '../helpers/postData';
 
@@ -9,7 +9,8 @@ const Product = () => {
 	const [product, setProduct] = useState(null);
 	const [images, setImages] = useState([]);
 	const [frontImage, setFrontImage] = useState(null);
-	const [count, setCount] = useState(0);
+	const [count, setCount] = useState(1);
+	const [userID, setUserID] = useState(1);
 	const { id } = useParams();
 
 	const getImages = async (id) => {
@@ -37,7 +38,13 @@ const Product = () => {
 	};
 
 	const handleAddToCart = async () => {
-		console.log('Added to cart');
+		const data = {
+			userID: userID,
+			productID: product.productID,
+			quantity: count,
+		};
+		const response = await postData(`${urlCart}/add`, data);
+		console.log(response);
 	}
 
 	useEffect(() => {
@@ -74,7 +81,7 @@ const Product = () => {
 								<span>{count}</span>
 								<button
 									onClick={() => setCount(count - 1)}
-									disabled={count === 0}
+									disabled={count === 1}
 								>
 									-
 								</button>
