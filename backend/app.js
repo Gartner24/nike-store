@@ -9,10 +9,12 @@ import router from './app/routes/index.routes.js';
 const app = express();
 dotenv.config()
 
+
 // Middlewares
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors());
+app.use(express.urlencoded({extended: true}));
 
 //Routes
 app.use('/api', router);
