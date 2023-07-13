@@ -2,8 +2,6 @@ import * as React from 'react';
 import './css/navbar.css';
 import logo from '../assets/logo.png';
 import { Link } from 'react-router-dom';
-import CartOverlay from '../components/CartOverlay';
-import CartWindow from './CartWindow';
 
 const Navbar = () => {
 	console.log();
@@ -37,10 +35,6 @@ const Navbar = () => {
 								Login
 							</p>
 						</Link>
-
-						<nav>
-							<CartOverlay />
-						</nav>
 					</div>
 				</div>
 			</header>
