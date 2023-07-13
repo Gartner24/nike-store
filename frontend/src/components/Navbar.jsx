@@ -9,10 +9,10 @@ import PersonIcon from "@mui/icons-material/Person";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import InfoIcon from '@mui/icons-material/Info';
 import HomeIcon from '@mui/icons-material/Home';
-import { useStore } from "../store/useStore";
+import useStore from "../store/useStore";
 
 function UserNavbar() {
-  const logout = useStore(state => state.logout);
+  const isAuthenticated = useStore(state => state.isAuthenticated);
 
   return (
     <header className="App-menu">
@@ -48,7 +48,7 @@ function UserNavbar() {
 }
 
 const AdminNavbar = () => {
-  const logout = useStore(state => state.logout);
+  const isAuthenticated = useStore(state => state.isAuthenticated);
 
   return (
     <header className="App-menu">

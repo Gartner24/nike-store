@@ -1,8 +1,8 @@
-import create from 'zustand';
+import { create, createStore } from 'zustand'
 
-const useStore = create((set, get) => ({
+const useStore = create((set) => ({
   isAuthenticated: false,
   logout: () => set({ isAuthenticated: false }),
 }));
 
-export { useStore };
+export default useStore;
