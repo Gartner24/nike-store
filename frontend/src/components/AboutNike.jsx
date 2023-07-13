@@ -11,8 +11,8 @@ const About = () => {
 
                 <div className='about-video-container'>
 
-                        <video autoPlay muted loop className='about-video'>
-                            <source src={video} type='video/mp4' />
+                        <video id="video" autoPlay muted loop className='about-video'>
+                            <source src={video} type='video/mp4'  />
                         </video>
 
                     <div className="about-tittle"> ABOUT US </div>  
@@ -31,7 +31,7 @@ const About = () => {
 
 
                 <div className='about-video-container'>
-                        <video autoPlay muted loop className='about-video'>
+                        <video id="video2" autoPlay muted loop className='about-video'>
                             <source src={video2} type='video/mp4' />
                         </video>
                     <div class="about-video-overlay"></div>
