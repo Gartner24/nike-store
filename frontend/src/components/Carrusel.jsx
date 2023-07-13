@@ -20,8 +20,8 @@ function Carrusel() {
     const responsive = {
       desktop: {
         breakpoint: { max: 3000, min: 1024 },
-        items: 3,
-        slidesToSlide: 3, // Número de elementos a desplazar en cada transición
+        items: 5,
+        slidesToSlide: 1, // Número de elementos a desplazar en cada transición
       },
       tablet: {
         breakpoint: { max: 1024, min: 464 },
@@ -36,9 +36,9 @@ function Carrusel() {
     };
   
     return (
-      <div className='carousel-wrapper'>
+      <div className="carousel-wrapper">
         <h1 className="title">Choose one:</h1>
-        <Carousel responsive={responsive} ssr={true} infinite={true}>
+        <Carousel responsive={responsive} ssr={true} infinite={true} centerMode={true} keyBoardControl={true}>
           {products.map((product, index) => (
             <div className="slide" key={index}>
               <img src={product.src} alt={product.alt} />

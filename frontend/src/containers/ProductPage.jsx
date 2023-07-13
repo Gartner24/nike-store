@@ -15,7 +15,10 @@ const ProductPage = () => {
 	<>
     <div>
 		<Carrusel />
+    
       <div className="row">
+      <h1 className='title-just-do-it'> JUST DO IT </h1>
+        <div className='productss'>
         {products?.map(({ productID,name,image,description,price }) => (
           
           <div className="col-md-4" key={productID}>
@@ -28,6 +31,7 @@ const ProductPage = () => {
             />
           </div>
         ))}
+        </div>
       </div>
     </div>
 	</>
