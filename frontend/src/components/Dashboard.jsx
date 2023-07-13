@@ -2,8 +2,8 @@ import React from 'react';
 
 const AdminDashboard = () => {
 	return (
-		<div class="dashboard">
-    <div class="sidebar">
+		<div className="dashboard">
+    <div className="sidebar">
       <ul>
         <li>Dashboard</li>
         <li>Orders</li>
@@ -12,7 +12,7 @@ const AdminDashboard = () => {
         <li>Settings</li>
       </ul>
     </div>
-    <div class="content">
+    <div className="content">
       <h1>Welcome to the Dashboard</h1>
       <p>This is the main content area of the dashboard.</p>
     </div>

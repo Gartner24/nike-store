@@ -4,6 +4,21 @@ import Product from '../models/product.models.js';
 
 const inventoryRouter = express.Router();
 
+// Obtener todos los inventarios
+inventoryRouter.get('/', async (req, res) => {
+  try {
+    const inventories = await Inventory.findAll();
+    //If there are no inventories
+    if (!inventories) {
+      return res.status(404).json({ message: 'No hay inventarios' });
+    }
+    res.status(200).json(inventories);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Error al obtener los inventarios' });
+  }
+});
+
 // Obtener el inventario de un producto por su ID
 inventoryRouter.get('/product/:productID', async (req, res) => {
   try {
