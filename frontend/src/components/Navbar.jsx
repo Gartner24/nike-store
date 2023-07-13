@@ -5,9 +5,18 @@ import { Link } from "react-router-dom";
 import StoreIcon from "@mui/icons-material/Store";
 import InfoIcon from "@mui/icons-material/Info";
 import LoginIcon from "@mui/icons-material/Login";
+import CartIcon from "./shoppingCart/CartIcon";
+import CartOverlay from "./shoppingCart/CartOverlay";
+import CartWindow from "./shoppingCart/CartWindow";
+
 
 const Navbar = () => {
   console.log();
+  const [cartOpen, setCartOpen] = React.useState(false);
+  const handleCartClose = () => {
+    setCartOpen(false);
+  };
+
   return (
     <div>
       <header className="App-menu">
@@ -31,8 +40,12 @@ const Navbar = () => {
                 <LoginIcon className="ico" />
               </Link>
             </li>
+            <li>
+              <CartIcon onClick={() => setCartOpen(true)}/>
+            </li>
           </ul>
         </nav>
+        {cartOpen && <CartWindow onClose={handleCartClose}/>}
       </header>
     </div>
     // <div className='App'>

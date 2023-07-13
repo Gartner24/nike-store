@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import CartWindow from "./CartWindow";
-import './css/CartIcon.css';
+import '../css/CartIcon.css';
 
 const CartOverlay = () => {
     const [cartOpen, setCartOpen] = useState(false);

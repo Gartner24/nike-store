@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './css/CartWindow.css';
+import '../css/CartWindow.css';
 
 const CartWindow = ({ onClose }) => {
     const [cartItems, setCartItems] = useState([]);
@@ -10,7 +10,7 @@ const CartWindow = ({ onClose }) => {
 
     return (
         <div className="cart-window">
-            <h2>Carrito de compras</h2>
+            <h3>El carrito está vacío</h3>
             <ul className="cart-list">
                 {cartItems.map((item, index) => (
                     <li key={index}>{item}</li>
