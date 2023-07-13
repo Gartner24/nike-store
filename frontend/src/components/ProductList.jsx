@@ -1,45 +1,28 @@
-
-import React, { useState } from "react";
-import { products } from "../data";
-import "./css/ProductList.css";
+import React from 'react';
+import { products } from '../data';
+import './css/ProductList.css';
+import { Link } from 'react-router-dom';
 
 const ProductList = () => {
-	const [products, setProducts] = useState([{ 
-		productID: 1,
-		productName: 'Zapatos',
-		description: 'descrpasdasd',
-		price: 200,
-	 },
-	 { 
-		productID: 2,
-		productName: 'Zapatos2',
-		description: 'descrpasdasd',
-		price: 200,
-	 },
-	 { 
-		productID: 3,
-		productName: 'Zapatos3',
-		description: 'descrpasdasd',
-		price: 200,
-	 }]);
+  const displayedProducts = products.slice(0, 3); // Mostrar solo los primeros 3 productos
 
-	return (
-		<div className='container-items'>
-			{products?.map((product) => (
-				<div className='item' key={product.productID}>
-					<figure>
-						{/* <img src={product.img} alt={product.nameProduct} /> */}
-					</figure>
-					<div className='info-product'>
-						<h2>{product.productName}</h2>
-						<p className='description'>${product.description}</p>
-						<p className='price'>${product.price}</p>
-						<button>Añadir al carrito</button>
-					</div>
-				</div>
-			))}
-		</div>
-	);
+  return (
+    <div className='container-items'>
+      {displayedProducts.map((product) => (
+        <div className='item' key={product.id}>
+          <figure>
+            {/* <img src={product.img} alt={product.nameProduct} /> */}
+          </figure>
+          <div className='info-product'>
+            <img className='image' src={product.image} alt={product.productName} />
+            <h2>{product.productName}</h2>
+            <p className='description'>${product.description}</p>
+            <Link to='/Store'><button>Go to store</button></Link>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default ProductList;
