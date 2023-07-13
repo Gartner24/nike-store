@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "./css/ProductList.css";
 import getData from "../helpers/getData";
 

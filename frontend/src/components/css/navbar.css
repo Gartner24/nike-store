@@ -5,8 +5,6 @@
   justify-content: space-between;
   align-items: center;
   align-content: center;
-  object-fit: cover;
-  margin: 0 10%;
 }
 
 .logo {
@@ -18,7 +16,6 @@
   justify-content: space-between;
   width: 100%;
   align-items: center;
-  margin-right: 5%;
   font-size: 100%;
   color: chocolate;
   list-style: none;
@@ -27,10 +24,15 @@
 
 li {
   text-decoration: none;
-  font-size: 60px;
 }
 
 .ico {
+  font-size: 200% !important;
   color: chocolate;
-  font-size: 40px;
+} 
+
+.ico:hover {
+  transition: 0.5s;
+  color: #f66464;
 }
+
