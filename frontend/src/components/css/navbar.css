@@ -20,7 +20,7 @@
   align-items: center;
   margin-right: 5%;
   font-size: 100%;
-  color: chocolate;
+  color: #ff6600;
   list-style: none;
   gap: 5%;
 }
@@ -30,7 +30,12 @@ li {
   font-size: 60px;
 }
 
+.cart-icon {
+  color: #ff6600;
+  cursor: pointer; /* Agrega esta línea para el cursor pointer */
+}
+
 .ico {
-  color: chocolate;
+  color: #ff6600;
   font-size: 40px;
 }
