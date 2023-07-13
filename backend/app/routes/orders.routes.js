@@ -31,7 +31,7 @@ orderRouter.post('/', async (req, res) => {
 		}
 
 		// Llamar al controlador de Stripe y abrir el enlace de pago
-		const paymentLinkResponse = await openStripePaymentLink(activeCarts, totalPrice, userID);
+		const paymentLinkResponse = await openStripePaymentLink(activeCarts, totalPrice, userID, shippingAddress);
 
 		if (paymentLinkResponse.url !== undefined) {
 			// Enviar el enlace de pago al cliente
@@ -49,6 +49,16 @@ orderRouter.post('/', async (req, res) => {
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({ message: 'Error al procesar la orden' });
+	}
+});
+
+orderRouter.get('/', async (req, res) => {
+	try {
+		const orders = await Order.findAll();
+		res.status(200).json(orders);
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({ message: 'Error al obtener las órdenes' });
 	}
 });
 

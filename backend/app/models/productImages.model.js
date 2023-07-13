@@ -1,7 +1,6 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../../config/db/database.js';
 
-
 const ProductImage = sequelize.define('ProductImage', {
     imageID: {
         type: DataTypes.INTEGER,
@@ -11,7 +10,7 @@ const ProductImage = sequelize.define('ProductImage', {
     productID: {
         type: DataTypes.INTEGER,
         allowNull: false
-    },  
+    },
     isFront: {
         type: DataTypes.BOOLEAN,
         allowNull: false,

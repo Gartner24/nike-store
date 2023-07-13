@@ -9,6 +9,8 @@ import fs from 'fs';
 const upload = multer();
 
 const productRouter = express.Router();
+
+// Crear un producto
 productRouter.post('/', upload.single('image'), async (req, res) => {
 	try {
 		const { productName, description, price } = req.body;
@@ -68,7 +70,9 @@ productRouter.post('/', upload.single('image'), async (req, res) => {
 productRouter.get('/', async (req, res) => {
 	try {
 		const products = await Product.findAll();
-		res.status(200).json(products);
+		if (products.length > 0) {
+			return res.status(200).json(products);
+		} else return res.status(404).json({ message: 'Products not found' });
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({ message: 'Error al obtener los productos' });
@@ -92,12 +96,12 @@ productRouter.get('/:productID', async (req, res) => {
 	}
 });
 
-// Update a product
+// Actualizar un producto
 productRouter.put('/:productID', async (req, res) => {
-	try {
-		const productID = req.params.productID;
-		const { productName, description, price } = req.body;
-		const imageFile = req.file; // Assuming the file field in the request is named 'image'
+  try {
+    const productID = req.params.productID;
+    const { productName, description, price } = req.body;
+    const imageFile = req.file; // Assuming the file field in the request is named 'image'
 
 		const product = await Product.findByPk(productID);
 
@@ -153,6 +157,7 @@ productRouter.put('/:productID', async (req, res) => {
 		res.status(500).json({ message: 'Error updating product' });
 	}
 });
+
 
 // Eliminar un producto
 productRouter.delete('/:productID', async (req, res) => {
