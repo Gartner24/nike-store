@@ -1,0 +1,143 @@
+.productContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+
+}
+
+.productFrontImage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+}
+
+.productFrontImage img {
+    width: 80%;
+    height: max-content;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.ProductInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: 10px;
+}
+
+.AddToCart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 50%;
+}
+
+.AddToCartContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60%;
+
+}
+
+.AddToCartContainer button, span {
+    width: 50px;
+    height: 50px;
+    border-radius: 50vh;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.AddToCartContainer button {
+    border: 1px solid white;
+    background-color: chocolate;
+    color: #fff;
+}
+
+.AddToCartContainer span {
+    border: 1px solid chocolate;
+    background-color: #fff;
+    color: chocolate;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.AddToCartContainer button:hover{
+    background-color: #fff;
+    color: chocolate;
+    border: 1px solid chocolate;
+}
+
+.AddToCartButton {
+    width: 200px;
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid white;
+    background-color: chocolate;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 0 10px;
+}
+
+
+.AddToCartButton:hover {
+    background-color: #fff;
+    color: chocolate;
+    border: 1px solid chocolate;
+}
+
+.productInfoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: 10px;
+}
+
+.productName {
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 0;
+}
+
+.productPrice {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.productDescription {
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.imagesContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100px;
+    margin: 10px 0;
+
+}
+
+.imagesContainer img {
+    cursor: pointer;
+    width: 100%;
+    height: max-content;
+    object-fit: cover;
+    border-radius: 5px;
+}

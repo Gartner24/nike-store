@@ -7,30 +7,52 @@ import Footer from '../components/Footer';
 import SignUp from '../components/auth/Signup';
 import Store from '../containers/ProductPage';
 import About from '../components/AboutNike';
-import Dashboard from '../components/Dashboard';
-import Product from '../components/Product';
+import AdminDashboard from '../components/Dashboard';
+import Error404 from '../components/PageNotFound';
+import Product from '../containers/Product';
+import PrivateRoutes from './Private.routes';
+import PublicRoutes from './Public.routes';
+import AdminRoutes from './Admin.routes';
 
 const AppRoutes = () => {
-	const [isAuth, setisAuth] = useState(false);
-
+	const [isAuthenticated, setisAuth] = useState(true);
+	const [role, setRole] = useState('admin');
 	return (
 		<BrowserRouter>
 			<Navbar />
 
 			<Routes>
+
 				<Route path='/' element={<Home />} />
+				<Route path='/home' element={<Home />} />
 
-				<Route path='/About' element={<About />} />
+				<Route path='/about' element={<About />} />
 
-				<Route path='/Store' element={<Store />} />
+				<Route path='/store' element={<Store />} />
 
-				<Route path='/login' element={<Login />} />
+				<Route path='/product/:id' element={<Product />} />
 
-				<Route path='/SignUp' element={<SignUp />} />
 
-				<Route path='/Dashboard' element={<Dashboard />} />
+				<Route path='/login' element={
+					<PublicRoutes isAuth={isAuthenticated}>
+						<Login />
+					</PublicRoutes>
+				} />
 
-				<Route path='/Product/:id' element={<Product />} />
+				<Route path='/signUp' element={
+					<PublicRoutes isAuth={isAuthenticated}>
+						<SignUp />
+					</PublicRoutes>
+				} />
+
+				<Route path='/admin-dashboard' element={
+					<AdminRoutes isAuth={isAuthenticated} role={role}>
+						<AdminDashboard />
+					</AdminRoutes>
+				} />
+
+
+				<Route path='*' element={<Error404 />} />
 
 			</Routes>
 

@@ -1,9 +1,8 @@
 import React from 'react'
+import { Navigate } from "react-router-dom";
 
-const Public = () => {
-  return (
-    <div>Public.routes</div>
-  )
+const PublicRoutes = ({ isAuth, children }) => {
+   return !isAuth ? children : <Navigate to='/home' />
 }
 
-export default Public.routes
+export default PublicRoutes

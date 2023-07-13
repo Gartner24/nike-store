@@ -35,6 +35,6 @@ router.use('/orders', ordersRouters);
 router.use('/cart', cartRouter);
 
 // Rutas para el pago (base path: /api/payment)
-router.use('/', paymentRouter);
+router.use('/payment', paymentRouter);
 
 export default router;
