@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './css/product.css';
 import { useParams } from 'react-router-dom';
-import ProductCard from '../components/ProductCard';
 import { urlProducts, urlImages } from '../helpers/urls';
 import getData from '../helpers/getData';
+import postData from '../helpers/postData';
 
 const Product = () => {
 	const [product, setProduct] = useState(null);
@@ -13,12 +13,12 @@ const Product = () => {
 	const { id } = useParams();
 
 	const getImages = async (id) => {
-		const images = await getData(
-			'https://nike-fake-store.onrender.com/api/images/' + id
+		const images = await getData(urlImages + id);
+		const isNotFrontImage = images.filter(
+			(image) => image.isFront === false
 		);
-		const isNotFrontImage = images.filter((image) => image.isFront === false);
 		setImages(isNotFrontImage);
-		setFrontImage(images.filter((image) => image.isFront === true)[0].imageURL);
+		setFrontImage(images[0]);
 	};
 
 	const getProduct = async () => {
@@ -27,41 +27,50 @@ const Product = () => {
 		await getImages(productResponse.productID);
 	};
 
+	const handleClickImage = (image) => {
+		const newFrontImage = image;
+		// remove image from images and add frontImage to images
+		const newImages = images.filter((image) => image.imageID !== newFrontImage.imageID);
+		newImages.push(frontImage);
+		setImages(newImages);
+		setFrontImage(newFrontImage);
+	};
+
+	const handleAddToCart = async () => {
+		console.log('Added to cart');
+	}
+
 	useEffect(() => {
 		getProduct();
-		console.log(images);
-
 	}, []);
 
 	return (
 		<>
-			{product === null ? (
-				<div className='Product'>
-					<div className='ProductInfo'>
-						<h2>Loading...</h2>
-					</div>
-				</div>
+			{!product ? (
+				<h1>Loading...</h1>
 			) : (
-				<div className='Product'>
-					<ProductCard
-						id={product.id}
-						image={frontImage}
-						name={product.name}
-						description={product.description}
-						price={product.price}
-					/>
+				<div className='productContainer'>
+					<div className='productFrontImage'>
+						<img src={frontImage?.imageURL} alt={product.productName} />
+					</div>
 					<div className='ProductInfo'>
-						<h2>{product.name}</h2>
-						<p>{product.price}</p>
-						<p>{product.description}</p>
-
-						{images.map((image) => (
-							<img src={image.imageURL} alt={image.imageURL} />
-						))}
-
-
+						<div className='imagesContainer'>
+							{images.map((image) => (
+								<img
+									key={image.imageID}
+									onClick={() => handleClickImage(image)}
+									src={image.imageURL}
+									alt={image.imageURL}
+								/>
+							))}
+						</div>
+						<div className='productInfoContainer'>
+							<p className='productPrice'>$ {product.price}</p>
+							<h2 className='productName'>{product.productName}</h2>
+							<p className='productDescription'>{product.description}</p>
+						</div>
 						<div className='AddToCart'>
-							<div className='AddToCartCont'>
+							<div className='AddToCartContainer'>
 								<span>{count}</span>
 								<button
 									onClick={() => setCount(count - 1)}
@@ -69,14 +78,13 @@ const Product = () => {
 								>
 									-
 								</button>
-								<button onClick={() => setCount(count + 1)}>+</button>
+								<button onClick={() => setCount(count + 1)}>
+									+
+								</button>
 							</div>
 							<button
 								className='AddToCartButton'
-								onClick={() => {
-									console.log('Added to cart');
-									setCount(count + 1);
-								}}
+								onClick={handleAddToCart}
 							>
 								Add to Cart
 							</button>
