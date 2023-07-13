@@ -1,28 +1,42 @@
-import React from 'react';
-import { products } from '../data';
-import './css/ProductList.css';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./css/ProductList.css";
+import getData from "../helpers/getData";
+
+const urlProducts = "https://nike-fake-store.onrender.com/api/products";
+const urlImages = "https://nike-fake-store.onrender.com/api/images/";
+
+const getImage = async (id) => {
+	const data = await getData(urlImages + id).then((data) => data[0].imageURL);
+	return data;
+	  };
 
 const ProductList = () => {
-  const displayedProducts = products.slice(0, 3); // Mostrar solo los primeros 3 productos
+	const [products, setProducts] = useState([]);
+	const [imageUrls, setImageUrls] = useState([]);
 
-  return (
-    <div className='container-items'>
-      {displayedProducts.map((product) => (
-        <div className='item' key={product.productID}>
-          <figure>
-            {/* <img src={product.img} alt={product.nameProduct} /> */}
-          </figure>
-          <div className='info-product'>
-            <img className='image' src={product.image} alt={product.productName} />
-            <h2>{product.productName}</h2>
-            <p className='description'>${product.description}</p>
-            <Link to='/Store'><button>Go to store</button></Link>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
+	useEffect(() => {
+		getData(urlProducts).then((data) => {
+			setProducts(data);
+			const urls = data.map((product) => getImage(product.productID));
+			Promise.all(urls).then((urls) => setImageUrls(urls));
+		});
+	}, []);
+
+	return (
+		<div className="container-items">
+			{products?.map((product, index) => (
+				<div className="item" key={product.productID}>
+					<img src={imageUrls[index]} alt={product.nameProduct} />
+					<div className="info-product">
+						<h2>{product.productName}</h2>
+						<p className="price">${product.price}</p>
+						<button>Añadir al carrito</button>
+					</div>
+				</div>
+			))}
+		</div>
+	);
 };
 
 export default ProductList;
