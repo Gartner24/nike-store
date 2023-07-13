@@ -9,7 +9,7 @@ const ProductList = () => {
   return (
     <div className='container-items'>
       {displayedProducts.map((product) => (
-        <div className='item' key={product.id}>
+        <div className='item' key={product.productID}>
           <figure>
             {/* <img src={product.img} alt={product.nameProduct} /> */}
           </figure>
