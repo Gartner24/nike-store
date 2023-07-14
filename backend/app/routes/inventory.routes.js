@@ -35,9 +35,7 @@ inventoryRouter.get('/product/:productID', async (req, res) => {
 // Obtener el inventario de todos los productos
 inventoryRouter.get('/', async (req, res) => {
   try {
-    const inventory = await Inventory.findAll({
-      include: Product
-    });
+    const inventory = await Inventory.findAll();
     
     res.status(200).json(inventory);
   } catch (error) {
