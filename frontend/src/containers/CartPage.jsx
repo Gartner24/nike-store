@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
 	urlProducts,
 	urlCart,
 	urlImages,
-	urlPayment,
 	urlUsers,
+	urlOrders,
 } from '../helpers/urls.js';
 import { AuthContext } from '../store/AuthContext';
 import parseJwt from '../helpers/parseJwt.js';
@@ -32,6 +32,15 @@ const CartPage = () => {
 	const token = localStorage.getItem('token');
 	const username = parseJwt(token).username;
 
+	const handlePayment = async () => {
+		const response = await axios.post(urlOrders, {
+			userID: user.userID,
+			shippingAddress: user.address,
+		});
+        // response.data.url enlace de pago open in a new tab
+        window.open(response.data.url, '_blank');
+	};
+
 	useEffect(() => {
 		setLoading(true);
 		const getUser = async () => {
@@ -44,33 +53,32 @@ const CartPage = () => {
 
 	useEffect(() => {
 		setLoading(true);
-        // user.userID is null
+		// user.userID is null
 		if (user.userID) {
-            const getCart = async () => {
-                const data = await axios.get(`${urlCart}/user/${user.userID}`);
-                setCart(data.data.cartItems);
-                console.log(data.data.cartItems);
-            };
-            getCart();
-            const getProducts = async () => {
-                const data = await getData(urlProducts);
-                setProducts(data);
-            };
-            getProducts();
-            const getImages = async () => {
-                const data = await getData(urlImages);
-                setImages(data);
-            };
-            getImages();
-            const setProductsFiltered = () => {
-                const productsFiltered = products.filter((product) => {
-                    return cart.find((item) => 
-                    item.productID === product.id);
-                });
-                setProducts(productsFiltered);
-            };
-            setProductsFiltered();
-        }
+			const getCart = async () => {
+				const data = await axios.get(`${urlCart}/user/${user.userID}`);
+				setCart(data.data.cartItems);
+				console.log(data.data.cartItems);
+			};
+			getCart();
+			const getProducts = async () => {
+				const data = await getData(urlProducts);
+				setProducts(data);
+			};
+			getProducts();
+			const getImages = async () => {
+				const data = await getData(urlImages);
+				setImages(data);
+			};
+			getImages();
+			const setProductsFiltered = () => {
+				const productsFiltered = products.filter((product) => {
+					return cart.find((item) => item.productID === product.id);
+				});
+				setProducts(productsFiltered);
+			};
+			setProductsFiltered();
+		}
 		setLoading(false);
 	}, [user]);
 
@@ -88,26 +96,26 @@ const CartPage = () => {
 
 			<div className='cart-container'>
 				<div className='cart-items'>
-					{
-                        products.map((product) => {
-                            return (
-                                <div className='cart-item'>
-                                    <img
-                                        src={images.find((image) => image.productID === product.productID).url}
-                                        alt={product.name}
-                                    />
-                                    <div className='cart-
-                                    item-info'>
-                                        <h3>{product.name}</h3>
-                                        <p>{product.description}</p>
-                                        <p>${product.price}</p>
-                                    </div>
-                                </div>
-                            );
-                        })
-
-                    }
+					{products.map((product) => {
+						return (
+							<div key={product.productID} className='cart-item'>
+								<img
+									// src={images.find((image) => image.productID === product.productID).url}
+									alt={product.name}
+								/>
+								<div
+									className='cart-
+                                    item-info'
+								>
+									<h3>{product.name}</h3>
+									<p>{product.description}</p>
+									<p>${product.price}</p>
+								</div>
+							</div>
+						);
+					})}
 				</div>
+				<button onClick={handlePayment}>Pay</button>
 			</div>
 		</>
 	);
