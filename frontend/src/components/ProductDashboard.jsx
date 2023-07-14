@@ -1,61 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { urlProducts } from '../helpers/urls';
-import { urlOrders } from '../helpers/urls';
-import { urlInventory } from '../helpers/urls';
-import { urlImages } from '../helpers/urls';
-import getData from '../helpers/getData';
-import putData from '../helpers/putData';
-import CreateProduct from './CreateProduct';
+import React from 'react';
 
-const AdminDashboard = () => {
-	const [products, setProducts] = useState([]);
-  const [images, setImages] = useState([]);
-  const [createProduct, setCreateProduct] = useState(false);
-  const [createImage, setCreateImage] = useState(false);
-
-	// State to hold the product being edited
-	const [editingProduct, setEditingProduct] = useState(null);
-
-	// get all products
-	const getProducts = async () => {
-		const data = await getData(urlProducts);
-		setProducts(data);
-	};
-
-	// get all images
-	const getImages = async () => {
-		const data = await getData(urlImages);
-		setImages(data);
-	};
-
-	const handleSubmit = async (e, productId) => {
-		e.preventDefault();
-		// Update the product using the editingProduct state
-		const updatedProduct = {
-			...editingProduct,
-			id: productId,
-		};
-		await putData(urlProducts + '/' + productId, updatedProduct);
-		// Clear the editing state and refresh the products
-		setEditingProduct(null);
-		getProducts();
-	};
-
-	useEffect(() => {
-		getProducts();
-		getImages();
-	}, []);
-
+const ProductDashboard = ({
+    products,
+    setProducts,
+    editingProduct,
+    setEditingProduct,
+    createProduct,
+    setCreateProduct,
+    handleSubmit,
+    handleDelete,
+}) => {
 	return (
-		<div className='dashboardContainer'>
-      <h1>Dashboard</h1>
-      <h2>Productos</h2>
-
-      <p>Agrega un producto</p>
-      {createProduct && <CreateProduct />}
-      <button onClick={() => setCreateProduct(!createProduct)}>
-        {createProduct ? 'Terminar' : 'Agregar'}
-      </button>
+		<>
+			<h2>Productos</h2>
+			<p>Agrega un producto</p>
+			{createProduct && <CreateProduct />}
+			<button onClick={() => setCreateProduct(!createProduct)}>
+				{createProduct ? 'Finish' : 'Create a Product'}
+			</button>
 
 			<table>
 				<thead>
@@ -136,15 +98,25 @@ const AdminDashboard = () => {
 										)
 									}
 								>
-									Guardar
+									Save
+								</button>
+								<button
+									onClick={() =>
+										handleDelete(editingProduct.productID)
+									}
+								>
+									Delete
+								</button>
+								<button onClick={() => setEditingProduct(null)}>
+									Cancel
 								</button>
 							</td>
 						</tr>
 					)}
 				</tbody>
 			</table>
-		</div>
+		</>
 	);
 };
 
-export default AdminDashboard;
+export default ProductDashboard;
