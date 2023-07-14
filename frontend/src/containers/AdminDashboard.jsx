@@ -70,7 +70,6 @@ const AdminDashboard = () => {
 		getData(urlInventory).then((data) => {
 			setInventory(data);
 			setLoading(false);
-			console.log(data)
 		});
 	}
 
@@ -88,7 +87,7 @@ const AdminDashboard = () => {
 		} catch (error) {
 			console.log(error);
 		}
-	}, [dashboardState, handleUpdateInventory, handleDeleteProduct, handleSubmitProduct]);
+	}, [dashboardState]);
 
 	if (loading) {
 		return <h1>Loading...</h1>;

@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import parseJwt from '../helpers/parseJwt.js';
+import { urlPing } from '../helpers/urls.js';
 
 const AuthContext = createContext();
 
@@ -18,7 +19,7 @@ const AuthProvider = ({ children }) => {
     const token = localStorage.getItem('token');
     if (token) {
       // Enviar solicitud fetch para obtener la información del usuario
-      fetch('http://localhost:8080/api/ping', {
+      fetch(urlPing, {
         headers: {
           Authorization: `Bearer ${token}`
         }

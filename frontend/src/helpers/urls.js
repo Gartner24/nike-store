@@ -5,6 +5,9 @@ const urlInventory = "https://nike-fake-store.onrender.com/api/inventory";
 const urlOrders = "https://nike-fake-store.onrender.com/api/orders";
 const urlCart = "https://nike-fake-store.onrender.com/api/cart";
 const urlPayment = "https://nike-fake-store.onrender.com/api/payment";
+const urlLogin = "https://nike-fake-store.onrender.com/api/login";
+const urlRegister = "https://nike-fake-store.onrender.com/api/register";
+const urlPing = "https://nike-fake-store.onrender.com/api/ping";
 
 export {
     urlUsers,
@@ -13,5 +16,8 @@ export {
     urlInventory,
     urlOrders,
     urlCart,
-    urlPayment
+    urlPayment,
+    urlLogin,
+    urlRegister,
+    urlPing
 }
