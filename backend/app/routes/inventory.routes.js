@@ -32,7 +32,19 @@ inventoryRouter.get('/product/:productID', async (req, res) => {
   }
 });
 
-// Update the inventory of a product
+// Obtener el inventario de todos los productos
+inventoryRouter.get('/', async (req, res) => {
+  try {
+    const inventory = await Inventory.findAll();
+    
+    res.status(200).json(inventory);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Error al obtener el inventario' });
+  }
+});
+
+// Actualizar el inventario de un producto
 inventoryRouter.put('/product/:productID', async (req, res) => {
   try {
     const productID = req.params.productID;

@@ -7,7 +7,7 @@ import CheckoutForm from '../components/FormPay';
 
 const Home = () => {
   // Get only the first three products
-  const threeProducts = products.slice(0, 3);
+  const threeProducts = products.slice(0, 1);
 
   return (
     <div className='MainVideo'>

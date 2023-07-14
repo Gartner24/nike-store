@@ -23,7 +23,7 @@ const ProductList = () => {
 		});
 	}, []);
 
-	const firstThreeProducts = products.slice(0, 3);
+	const firstThreeProducts = products.slice(0 , 3);
 
 	return (
 		<div className='container-items'>

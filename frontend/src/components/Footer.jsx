@@ -6,7 +6,6 @@ const developers = [
   { name: "Adrián Fernando Gaitán Londoño", github: "https://github.com/adriancho91s" },
   { name: "Arnovi Antonio Jimenez Velasquez", github: "https://github.com/Arnovii" },
   { name: "Juan David Garcia Arce", github: "https://github.com/Juandagarc" },
-  { name: "Santiago Guevara Mendez", github: "https://github.com/DjSantech" },
   { name: "Jeronimo Riveros Perea", github: "https://github.com/Max1mus5" },
   { name: "Juan Pablo Sanchez Zapata", github: "https://github.com/jpsz2004" },
   { name: "Julian Andres Corral Gomez", github: "https://github.com/JulianCorralG" },

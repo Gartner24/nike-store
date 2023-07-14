@@ -1,0 +1,62 @@
+.background-product{
+    background-color: white;
+    padding: 5vw;
+    font-size: 1vw;
+    padding: 5%;
+    margin-top: 5%;
+    border-style: solid;
+    border-radius: 0.3em;
+}
+
+.product-table {
+    width: 80%;
+    border-collapse: collapse;
+}
+
+.product-table th,
+.product-table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.product-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.product-table input[type="text"] {
+    width: 100%;
+    padding: 4px;
+}
+
+.edit-button,
+.save-button,
+.delete-button,
+.cancel-button {
+    padding: 8px 12px;
+    background-color: chocolate;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-button:hover,
+.save-button:hover,
+.delete-button:hover,
+.cancel-button:hover {
+    background-color: coral;
+}
+
+.create-product-button {
+    padding: 8px 12px;
+    background-color: chocolate;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.create-product-button:hover {
+    background-color: coral;
+    
+}

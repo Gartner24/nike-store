@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import postData from '../helpers/postData';
 import { urlImages, urlProducts } from '../helpers/urls';
 import axios from 'axios';
+import "./css/CreateProducts.css";
 
 const CreateProduct = () => {
 	const [product, setProduct] = useState({
@@ -105,7 +106,7 @@ const CreateProduct = () => {
 			<h1>Create Product</h1>
 			<form onSubmit={handleSubmit}>
 				<label htmlFor='productName'>Product Name</label>
-				<input
+				<input className='input-border'
 					required
 					type='text'
 					name='productName'
@@ -113,7 +114,7 @@ const CreateProduct = () => {
 					onChange={handleChange}
 				/>
 				<label htmlFor='description'>Description</label>
-				<input
+				<input className='input-border'
 					required
 					type='text'
 					name='description'
@@ -121,7 +122,7 @@ const CreateProduct = () => {
 					onChange={handleChange}
 				/>
 				<label htmlFor='price'>Price</label>
-				<input
+				<input className='input-border'
 					required
 					type='number'
 					name='price'
@@ -148,7 +149,7 @@ const CreateProduct = () => {
 					multiple
 					onChange={handleSecondaryImagesChange}
 				/>
-				<button type='submit'>Create Product</button>
+				<button className='creation' type='submit'>Create Product</button>
 			</form>
 		</>
 	);
