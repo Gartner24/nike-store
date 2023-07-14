@@ -9,6 +9,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import InfoIcon from '@mui/icons-material/Info';
+import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
 import HomeIcon from '@mui/icons-material/Home';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import { AuthContext } from "../store/AuthContext";
@@ -70,8 +71,13 @@ const AdminNavbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/admin-dashboard">
+            <Link to="/profile">
               <PersonIcon className="ico" />
+            </Link>
+          </li>
+          <li>
+            <Link to="/admin-dashboard">
+              <SpaceDashboardIcon className="ico" />
             </Link>
           </li>
           <li>

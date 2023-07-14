@@ -159,23 +159,24 @@ productRouter.put('/:productID', async (req, res) => {
 });
 
 
-// Eliminar un producto
+// Eliminar un producto antes eliminar el producto se debe eliminar el inventario y las imagenes del producto
 productRouter.delete('/:productID', async (req, res) => {
 	try {
 		const productID = req.params.productID;
-
 		const product = await Product.findByPk(productID);
 
 		if (!product) {
-			return res.status(404).json({ message: 'Producto no encontrado' });
+			return res.status(404).json({ message: 'Product not found' });
 		}
 
+		await ProductImage.destroy({ where: { productID } });
+		await Inventory.destroy({ where: { productID } });
 		await product.destroy();
 
-		res.status(200).json({ message: 'Producto eliminado' });
+		res.status(200).json({ message: 'Product deleted' });
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ message: 'Error al eliminar el producto' });
+		res.status(500).json({ message: 'Error deleting product' });
 	}
 });
 

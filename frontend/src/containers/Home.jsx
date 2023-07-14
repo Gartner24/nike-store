@@ -22,11 +22,6 @@ const Home = () => {
         {threeProducts.map(({ productID, name, image, description, price }) => (
           <div className="col-md-4" key={productID}>
             <ProductList
-              id={productID}
-              name={name}
-              image={image}
-              description={description}
-              price={price}
             />
           </div>
         ))}

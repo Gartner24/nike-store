@@ -1,4 +1,18 @@
 .row {
+    padding: 1%;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+.title {
+    text-align: center;
+    font-size: 50px;
+}
+.title-just-do-it {
+    text-align: center;
+    font-size: 200px;
+    font-family: 'Bebas Neue', sans-serif;
+}
+.productss {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

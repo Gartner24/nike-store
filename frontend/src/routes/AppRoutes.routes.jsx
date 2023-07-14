@@ -7,13 +7,14 @@ import Footer from '../components/Footer';
 import SignUp from '../components/auth/Signup';
 import Store from '../containers/ProductPage';
 import About from '../components/AboutNike';
-import AdminDashboard from '../components/Dashboard';
+import AdminDashboard from '../containers/AdminDashboard';
 import Error404 from '../components/PageNotFound';
 import Product from '../containers/Product';
 import PrivateRoutes from './Private.routes';
 import PublicRoutes from './Public.routes';
 import AdminRoutes from './Admin.routes';
 import parseJwt from '../helpers/parseJwt';
+import Profile from '../components/Profile';
 
 const AppRoutes = () => {
 	const [isAuthenticated, setisAuth] = useState(false);

@@ -10,7 +10,7 @@ const Error404 = () => {
 				<img src={logo} alt='logo-nike' />
 			</div>
 			<div className='container-message'>
-				<p>Just didn´t do it</p>
+				<p>Just didn't do it</p>
 			</div>
 			<div className='container-text'>
 				<p>DO IT.</p>
