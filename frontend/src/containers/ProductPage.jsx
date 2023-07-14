@@ -10,6 +10,7 @@ import { urlProducts, urlImages } from '../helpers/urls';
 const ProductPage = () => {
 
     const [products, setProducts] = useState([]);
+    const [imageUrls, setImageUrls] = useState([]);
 
   
     const getImage = async (id) => {

@@ -126,8 +126,8 @@ const UnregisteredNavbar = () => {
 }
 
 const Navbar = () => {
-  const [isAuthenticated, setIsAuthenticated] = React.useState(true);
-  const [isAdmin, setIsAdmin] = React.useState(true);
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const [isAdmin, setIsAdmin] = React.useState(false);
 
   if (isAuthenticated && isAdmin) {
     return <AdminNavbar />;

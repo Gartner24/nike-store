@@ -9,9 +9,10 @@ const CreateProduct = () => {
 		description: '',
 		price: '',
 	});
-
+	const [loading, setLoading] = useState(false);
 	const [mainImage, setMainImage] = useState(null);
 	const [secondaryImages, setSecondaryImages] = useState([]);
+	const [error, setError] = useState(null);
 
 	const handleChange = (e) => {
 		setProduct({
@@ -29,60 +30,75 @@ const CreateProduct = () => {
 		const files = Array.from(e.target.files);
 
 		if (files.length < 2) {
-			// Display an error message or handle the validation error
-			// You can prevent further processing if the minimum requirement is not met
-			console.log('Select at least 2 files');
+			setError('Select at least 2 images');
 			return;
 		}
 
 		setSecondaryImages(files);
 	};
 
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		if (!mainImage) {
+			setError('Select a main image');
+			return;
+		} else if (secondaryImages.length < 2) {
+			setError('Select at least 2 secondary images');
+			return;
+		} else if (secondaryImages.length > 5) {
+			setError('Select a maximum of 5 secondary images');
+			return;
+		}
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  if (!mainImage) {
-    console.log('Select a main image');
-    return;
-  } else if (secondaryImages.length < 2) {
-    console.log('Select at least 2 secondary images');
-    return;
-  } else if (secondaryImages.length > 5) {
-    console.log('Select up to 5 secondary images');
-    return;
-  }
-  // If all the requirements are met, form-data like postman and send the request
-  const formData = new FormData();
-  formData.append('productName', product.productName);
-  formData.append('description', product.description);
-  formData.append('price', product.price);
-  // Append main image like postman key image value file
-  formData.append('image', mainImage);
-  try {
-    await axios.post(urlProducts, formData , {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
-    .then((response) => {
-      console.log(response.data);
-      // Get the id of the product created to use it in the url
-      const productId = response.data.id;
-      // Send for each secondary image a separated post request to the /images//add/:productID
-      secondaryImages.forEach(async (image) => {
-        const formData = new FormData();
-        formData.append('image', image);
-        await axios.post(urlImages + 'add/' + productId, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-      });
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
+		setError(null);
+		setLoading(true);
+		// If all the requirements are met, form-data like postman and send the request
+		const formData = new FormData();
+		formData.append('productName', product.productName);
+		formData.append('description', product.description);
+		formData.append('price', product.price);
+		// Append main image like postman key image value file
+		formData.append('image', mainImage);
+		try {
+			await axios
+				.post(urlProducts, formData, {
+					headers: {
+						'Content-Type': 'multipart/form-data',
+					},
+				})
+				.then((response) => {
+					// Get the id of the product created to use it in the url
+					const productId = response.data.product.productID;
+					// Send for each secondary image a separated post request to the /images//add/:productID
+					secondaryImages.forEach(async (image) => {
+						const formData = new FormData();
+						formData.append('image', image);
+						await axios
+							.post(urlImages + 'add/' + productId, formData, {
+								headers: {
+									'Content-Type': 'multipart/form-data',
+								},
+							})
+							.then((response) => {
+								console.log(response.data);
+								// Clear the form
+								setProduct({
+									productName: '',
+									description: '',
+									price: '',
+								});
+								setMainImage(null);
+								setSecondaryImages([]);
+								setLoading(false);
+							});
+					});
+				});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	if (loading) return <p>Loading...</p>;
 
 	return (
 		<>

@@ -16,8 +16,8 @@ import AdminRoutes from './Admin.routes';
 import Profile from '../components/Profile';
 
 const AppRoutes = () => {
-	const [isAuthenticated, setisAuth] = useState(true);
-	const [role, setRole] = useState('admin');
+	const [isAuthenticated, setisAuth] = useState(false);
+	const [role, setRole] = useState('client');
 	return (
 		<BrowserRouter>
 			<Navbar />

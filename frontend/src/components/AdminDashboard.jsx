@@ -5,13 +5,15 @@ import { urlInventory } from '../helpers/urls';
 import { urlImages } from '../helpers/urls';
 import getData from '../helpers/getData';
 import putData from '../helpers/putData';
+import deleteData from '../helpers/deleteData';
 import CreateProduct from './CreateProduct';
 
 const AdminDashboard = () => {
 	const [products, setProducts] = useState([]);
-  const [images, setImages] = useState([]);
-  const [createProduct, setCreateProduct] = useState(false);
-  const [createImage, setCreateImage] = useState(false);
+	const [images, setImages] = useState([]);
+	const [createProduct, setCreateProduct] = useState(false);
+	const [createImage, setCreateImage] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	// State to hold the product being edited
 	const [editingProduct, setEditingProduct] = useState(null);
@@ -41,21 +43,37 @@ const AdminDashboard = () => {
 		getProducts();
 	};
 
-	useEffect(() => {
+	const handleDelete = async (productId) => {
+		await deleteData(urlProducts + productId);
 		getProducts();
-		getImages();
+		setEditingProduct(null);
+	};
+
+	useEffect(() => {
+		try {
+			setLoading(true);
+			getProducts();
+			getImages();
+			setLoading(false);
+		} catch (error) {
+			console.log(error);
+		}
 	}, []);
+
+	if (loading) {
+		return <h1>Loading...</h1>;
+	}
 
 	return (
 		<div className='dashboardContainer'>
-      <h1>Dashboard</h1>
-      <h2>Productos</h2>
+			<h1>Dashboard</h1>
+			<h2>Productos</h2>
 
-      <p>Agrega un producto</p>
-      {createProduct && <CreateProduct />}
-      <button onClick={() => setCreateProduct(!createProduct)}>
-        {createProduct ? 'Terminar' : 'Agregar'}
-      </button>
+			<p>Agrega un producto</p>
+			{createProduct && <CreateProduct />}
+			<button onClick={() => setCreateProduct(!createProduct)}>
+				{createProduct ? 'Finish' : 'Create a Product'}
+			</button>
 
 			<table>
 				<thead>
@@ -136,7 +154,17 @@ const AdminDashboard = () => {
 										)
 									}
 								>
-									Guardar
+									Save
+								</button>
+								<button
+									onClick={() =>
+										handleDelete(editingProduct.productID)
+									}
+								>
+									Delete
+								</button>
+								<button onClick={() => setEditingProduct(null)}>
+									Cancel
 								</button>
 							</td>
 						</tr>
