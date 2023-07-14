@@ -6,8 +6,8 @@ import { urlImages } from '../helpers/urls';
 import getData from '../helpers/getData';
 import putData from '../helpers/putData';
 import deleteData from '../helpers/deleteData';
-import CreateProduct from '../components/CreateProduct';
 import ProductDashboard from '../components/ProductDashboard';
+import InventoryDashboard from '../components/InventoryDashboard';
 
 const AdminDashboard = () => {
 	const [dashboardState, setDashboardState] = useState(0);
@@ -17,14 +17,9 @@ const AdminDashboard = () => {
 	const [inventory, setInventory] = useState([]);
 	const [loading, setLoading] = useState(false);
 
-	// Inventory Dashboard variables
-	// 		productID: product.productID,
-	// 		quantity: 1,
-	// 		stockMin: 0,
-	// 		stockMax: 200,
-
 	// State to hold the product being edited
 	const [editingProduct, setEditingProduct] = useState(null);
+	const [editingInventory, setEditingInventory] = useState(null);
 
 	// get all products
 	const getProducts = async () => {
@@ -38,7 +33,7 @@ const AdminDashboard = () => {
 		setImages(data);
 	};
 
-	const handleSubmit = async (e, productId) => {
+	const handleSubmitProduct = async (e, productId) => {
 		e.preventDefault();
 		// Update the product using the editingProduct state
 		const updatedProduct = {
@@ -51,11 +46,33 @@ const AdminDashboard = () => {
 		getProducts();
 	};
 
-	const handleDelete = async (productId) => {
+	const handleDeleteProduct = async (productId) => {
 		await deleteData(urlProducts + productId);
 		getProducts();
 		setEditingProduct(null);
 	};
+
+	const handleUpdateInventory = async (e, productId) => {
+		e.preventDefault();
+		// Update the product using the editingProduct state
+		const updatedInventory = {
+			...editingInventory,
+			id: productId,
+		};
+		await putData(urlInventory + '/product/' + productId, updatedInventory);
+		// Clear the editing state and refresh the products
+		setEditingInventory(null);
+		getProducts();
+
+	};
+
+	const getInventory = async () => {
+		getData(urlInventory).then((data) => {
+			setInventory(data);
+			setLoading(false);
+			console.log(data)
+		});
+	}
 
 	useEffect(() => {
 		try {
@@ -66,15 +83,12 @@ const AdminDashboard = () => {
 				setLoading(false);
 			} else if (dashboardState === 2) {
 				setLoading(true);
-				getData(urlInventory).then((data) => {
-					setInventory(data);
-					setLoading(false);
-				});
+				getInventory();
 			}
 		} catch (error) {
 			console.log(error);
 		}
-	}, [dashboardState]);
+	}, [dashboardState, handleUpdateInventory, handleDeleteProduct, handleSubmitProduct]);
 
 	if (loading) {
 		return <h1>Loading...</h1>;
@@ -91,13 +105,11 @@ const AdminDashboard = () => {
 					<button onClick={() => setDashboardState(2)}>
 						Inventario
 					</button>
-					{
-						dashboardState !== 0 && (
-							<button onClick={() => setDashboardState(0)}>
-								Regresar
-							</button>
-						)
-					}
+					{dashboardState !== 0 && (
+						<button onClick={() => setDashboardState(0)}>
+							Regresar
+						</button>
+					)}
 				</>
 
 				{dashboardState === 1 && (
@@ -109,14 +121,21 @@ const AdminDashboard = () => {
 							setEditingProduct={setEditingProduct}
 							createProduct={createProduct}
 							setCreateProduct={setCreateProduct}
-							handleSubmit={handleSubmit}
-							handleDelete={handleDelete}
+							handleSubmit={handleSubmitProduct}
+							handleDelete={handleDeleteProduct}
 						/>
 					</>
 				)}
 				{dashboardState === 2 && (
 					<>
-						<h2>Inventario</h2>
+						<InventoryDashboard
+							products={products}
+							images={images}
+							inventory={inventory}
+							editingInventory={editingInventory}
+							setEditingInventory={setEditingInventory}
+							handleUpdateInventory={handleUpdateInventory}
+						/>
 					</>
 				)}
 			</div>
