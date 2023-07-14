@@ -6,7 +6,8 @@ import inventoryRouter from './inventory.routes.js';
 import ordersRouters from './orders.routes.js';
 import paymentRouter from './payment.routes.js';
 import productImageRouter from './productImages.routes.js';
-import authenticationRouter from './authentication/authentication.routes.js';
+import pingController from '../controllers/pingController.js';
+import loginRouter from './login.routes.js';
 
 const router = express.Router();
 
@@ -38,6 +39,10 @@ router.use('/cart', cartRouter);
 // Rutas para el pago (base path: /api/payment)
 router.use('/payment', paymentRouter);
 
-router.use('/authentication', authenticationRouter)
+// Ping
+router.get('/ping', pingController);
+
+//Login 
+router.post('/login', loginRouter);
 
 export default router;

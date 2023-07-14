@@ -13,7 +13,10 @@ dotenv.config()
 // Middlewares
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: ["http://localhost:5173"],
+    methods: ["GET", "POST"]
+}));
 app.use(express.urlencoded({extended: true}));
 
 //Routes
