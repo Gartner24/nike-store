@@ -6,7 +6,6 @@ import { urlImages } from '../helpers/urls';
 import getData from '../helpers/getData';
 import putData from '../helpers/putData';
 import deleteData from '../helpers/deleteData';
-import CreateProduct from '../components/CreateProduct';
 import ProductDashboard from '../components/ProductDashboard';
 import InventoryDashboard from '../components/InventoryDashboard';
 
