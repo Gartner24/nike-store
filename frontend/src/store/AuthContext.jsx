@@ -1,5 +1,5 @@
-import React, { createContext, useState, useEffect } from 'react';
-import parseJwt from '../helpers/parseJwt.js';
+import React, { createContext, useState, useEffect } from "react";
+import parseJwt from "../helpers/parseJwt.js";
 
 const AuthContext = createContext();
 
@@ -8,26 +8,21 @@ const AuthProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [userData, setUserData] = useState(null);
 
-  useEffect(() => {
-    // Actualizar el estado global cuando se detecte un cambio en isAuthenticated o isAdmin
-    setUserData(null);
-    // Lógica para verificar el estado del usuario y asignar valores a isAuthenticated, isAdmin y userData
-  }, [isAuthenticated, isAdmin]);
-
-  const checkTokenValidity = () => {
-    const token = localStorage.getItem('token');
+  const checkTokenValidity = async () => {
+    const token = localStorage.getItem("token");
     if (token) {
-      // Enviar solicitud fetch para obtener la información del usuario
-      fetch('http://localhost:8080/api/ping', {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-        .then(response => response.json())
-        .then(data => {
+      try {
+        const response = await fetch("https://nike-fake-store.onrender.com/api/ping", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
           if (Array.isArray(data) && data.length > 0) {
             const user = data[0];
-            setIsAdmin(user.role === 'admin');
+            setIsAdmin(user.role === "admin");
             setUserData(user);
             setIsAuthenticated(true);
           } else {
@@ -35,13 +30,17 @@ const AuthProvider = ({ children }) => {
             setUserData(null);
             setIsAuthenticated(false);
           }
-        })
-        .catch(error => {
+        } else {
           setIsAdmin(false);
           setUserData(null);
           setIsAuthenticated(false);
-          console.error('Error:', error);
-        });
+        }
+      } catch (error) {
+        setIsAdmin(false);
+        setUserData(null);
+        setIsAuthenticated(false);
+        console.error("Error:", error);
+      }
     } else {
       setIsAdmin(false);
       setUserData(null);
@@ -50,8 +49,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const handleLogout = () => {
-    // Limpiar los datos del usuario y cerrar sesión
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
     setIsAdmin(false);
     setUserData(null);
     setIsAuthenticated(false);
@@ -66,7 +64,7 @@ const AuthProvider = ({ children }) => {
     isAdmin,
     userData,
     checkTokenValidity,
-    handleLogout
+    handleLogout,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

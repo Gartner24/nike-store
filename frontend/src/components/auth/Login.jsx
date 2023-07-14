@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import '../css/login.css';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../Navbar';
 
 const Login = () => {
   const [password, setPassword] = useState('');
@@ -15,7 +16,7 @@ const Login = () => {
       password: password
     };
 
-    fetch('http://localhost:8080/api/login', {
+    fetch('https://nike-fake-store.onrender.com/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -28,6 +29,7 @@ const Login = () => {
         if (result.token) {
           localStorage.setItem('token', result.token);
           setLoginSuccessful(true);
+          window.location.reload();
           navigate('/home'); // Redireccionar al usuario a la página de inicio después de iniciar sesión exitosamente
         } else {
           setLoginSuccessful(false);
@@ -39,7 +41,7 @@ const Login = () => {
   };
 
   if (loginSuccessful) {
-    return null; // Opcionalmente puedes retornar null si no quieres renderizar nada en este componente después del inicio de sesión exitoso
+    return null;
   }
 
   return (
