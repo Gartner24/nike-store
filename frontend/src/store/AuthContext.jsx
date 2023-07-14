@@ -1,5 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
-import parseJwt from "../helpers/parseJwt.js";
+import { createContext, useState, useEffect } from "react";
 
 const AuthContext = createContext();
 

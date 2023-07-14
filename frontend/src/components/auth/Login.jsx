@@ -1,20 +1,20 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import '../css/login.css';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar';
 
 const Login = () => {
-  const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
-  const [loginSuccessful, setLoginSuccessful] = useState(false);
-  const navigate = useNavigate();
+	const [password, setPassword] = useState('');
+	const [username, setUsername] = useState('');
+	const [loginSuccessful, setLoginSuccessful] = useState(false);
+	const navigate = useNavigate();
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    const data = {
-      username: username,
-      password: password
-    };
+	const handleLogin = (e) => {
+		e.preventDefault();
+		const data = {
+			username: username,
+			password: password,
+		};
 
     fetch('https://nike-fake-store.onrender.com/api/login', {
       method: 'POST',
@@ -44,33 +44,33 @@ const Login = () => {
     return null;
   }
 
-  return (
-    <div className="custom-form">
-      <form>
-        <label className="custom-label">Username:</label>
-        <input
-          onChange={(event) => {
-            setUsername(event.target.value);
-          }}
-          placeholder="username"
-          className="custom-input"
-          type="text"
-        />
-        <label className="custom-label">Password:</label>
-        <input
-          onChange={(event) => {
-            setPassword(event.target.value);
-          }}
-          placeholder="password"
-          className="custom-input"
-          type="password"
-        />
-        <button className="custom-button" onClick={handleLogin}>
-          Login
-        </button>
-      </form>
-    </div>
-  );
+	return (
+		<div className='custom-form'>
+			<form>
+				<label className='custom-label'>Username:</label>
+				<input
+					onChange={(event) => {
+						setUsername(event.target.value);
+					}}
+					placeholder='username'
+					className='custom-input'
+					type='text'
+				/>
+				<label className='custom-label'>Password:</label>
+				<input
+					onChange={(event) => {
+						setPassword(event.target.value);
+					}}
+					placeholder='password'
+					className='custom-input'
+					type='password'
+				/>
+				<button className='custom-button' onClick={handleLogin}>
+					Login
+				</button>
+			</form>
+		</div>
+	);
 };
 
 export default Login;

@@ -19,62 +19,66 @@ import Profile from '../components/Profile';
 const AppRoutes = () => {
 	const [isAuthenticated, setisAuth] = useState(false);
 	const [role, setRole] = useState();
-  
+
 	useEffect(() => {
-	  const token = localStorage.getItem('token');
-	  if (token) {
-		const parsedToken = parseJwt(token);
-		const isTokenValid = parsedToken.exp * 1000 > Date.now();
-		setisAuth(isTokenValid);
-		setRole(parsedToken.role);
-	  }
+		const token = localStorage.getItem('token');
+		if (token) {
+			const parsedToken = parseJwt(token);
+			const isTokenValid = parsedToken.exp * 1000 > Date.now();
+			setisAuth(isTokenValid);
+			setRole(parsedToken.role);
+		}
 	}, []);
-  
+
 	return (
-	  <BrowserRouter>
-		<Navbar />
-  
-		<Routes>
-		  <Route path='/' element={<Home />} />
-		  <Route path='/home' element={<Home />} />
-		  <Route path='/about' element={<About />} />
-		  <Route path='/store' element={<Store />} />
-		  <Route path='/product/:id' element={<Product />} />
-		  <Route
-			path='/login'
-			element={
-			  <PublicRoutes isAuth={isAuthenticated}>
-				<Login />
-			  </PublicRoutes>
-			}
-		  />
-		  <Route
-			path='/signUp'
-			element={
-			  <PublicRoutes isAuth={isAuthenticated}>
-				<SignUp />
-			  </PublicRoutes>
-			}
-		  />
-		  {isAuthenticated && (
-			<>
-			  <Route
-				path='/admin-dashboard'
-				element={
-				  <AdminRoutes isAuth={isAuthenticated} role={role}>
-					<AdminDashboard />
-				  </AdminRoutes>
-				}
-			  />
-			  {/* Otras rutas privadas */}
-			</>
-		  )}
-		  <Route path='*' element={<Error404 />} />
-		</Routes>
-  
-		<Footer />
-	  </BrowserRouter>
+		<BrowserRouter>
+			<Navbar />
+
+			<Routes>
+				<Route path='/' element={<Home />} />
+				<Route path='/home' element={<Home />} />
+				<Route path='/about' element={<About />} />
+				<Route path='/store' element={<Store />} />
+				<Route path='/product/:id' element={<Product />} />
+
+				<Route
+					path='/login'
+					element={
+						<PublicRoutes isAuth={isAuthenticated}>
+							<Login />
+						</PublicRoutes>
+					}
+				/>
+				<Route
+					path='/signUp'
+					element={
+						<PublicRoutes isAuth={isAuthenticated}>
+							<SignUp />
+						</PublicRoutes>
+					}
+				/>
+				{isAuthenticated && (
+					<>
+						<Route
+							path='/admin-dashboard'
+							element={
+								<AdminRoutes
+									isAuth={isAuthenticated}
+									role={role}
+								>
+									<AdminDashboard />
+								</AdminRoutes>
+							}
+						/>
+						{/* Otras rutas privadas */}
+					</>
+				)}
+				<Route path='*' element={<Error404 />} />
+			</Routes>
+
+			<Footer />
+		</BrowserRouter>
 	);
-  };
-  
-  export default AppRoutes;
+};
+
+export default AppRoutes;
