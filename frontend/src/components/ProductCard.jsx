@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './css/productcard.css';
+import { useNavigate } from 'react-router-dom';
 
-const ProductCard = ({image, name, description, price}) => {
+
+const ProductCard = ({id,image, name, description, price}) => {
+
+
+ const navigate = useNavigate();
+
+ const handleClick = () => {
+
+ navigate(`/product/${id}`)
+
+ }
+
   return (
-    <div className='contenedor-cartaproducto'>
+    <div className='contenedor-cartaproducto' onClick={handleClick}>
       <img
         className='imagen-cartaproducto'
         src={image}

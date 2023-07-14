@@ -1,40 +1,70 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './css/product.css';
+import { useParams } from 'react-router-dom';
+import { products } from '../data';
+import ProductCard from './ProductCard';
 
-const Product = ({ image, name, description, price }) => {
-	// console.log(props.image)
-	// console.log(`../assets/${props.image}.png`)
+const Product = () => {
+	const [product, setProduct] = useState(null);
 	const [count, setCount] = useState(0);
+	const { id } = useParams();
+
+	const getProduct = () => {
+		const response = products.find((product) => Number(id) === product.productID);
+
+
+		setProduct(response);
+	};
+
+	useEffect(() => {
+		getProduct();
+	}, []);
+
+	console.log('Este es el producto:', product);
+
 	return (
-		<div className='Product'>
-			{/* <img src={image} alt={name} /> */}
-			<div className='ProductInfo'>
-				<h2>{name}</h2>
-				<p>{`${price}$`}</p>
-				<p>{description}</p>
-				<div className='AddToCart'>
-					<div className='AddToCartCont'>
-						<span>{count}</span>
-						<button
-							onClick={() => setCount(count - 1)}
-							disabled={count === 0}
-						>
-							-
-						</button>
-						<button onClick={() => setCount(count + 1)}>+</button>
+		<>
+			{product === null ? (
+				<div className='Product'>
+					<div className='ProductInfo'>
+						<h2>Loading...</h2>
 					</div>
-					<button
-						className='AddToCartButton'
-						onClick={() => {
-							console.log('Added to cart');
-							setCount(count + 1);
-						}}
-					>
-						Add to Cart
-					</button>
 				</div>
-			</div>
-		</div>
+			) : (
+				<div className='Product'>
+					<ProductCard
+						id={product.id}
+						image={product.image}
+						name={product.name}
+						description={product.description}
+						price={product.price}
+					/>
+					<div className='ProductInfo'>
+						<h2>{product.name}</h2>
+						<p>{product.price}</p>
+						<p>{product.description}</p>
+						<div className='AddToCart'>
+							<div className='AddToCartCont'>
+								<span>{count}</span>
+								<button onClick={() => setCount(count - 1)} disabled={count === 0}>
+									-
+								</button>
+								<button onClick={() => setCount(count + 1)}>+</button>
+							</div>
+							<button
+								className='AddToCartButton'
+								onClick={() => {
+									console.log('Added to cart');
+									setCount(count + 1);
+								}}
+							>
+								Add to Cart
+							</button>
+						</div>
+					</div>
+				</div>
+			)}
+		</>
 	);
 };
 
