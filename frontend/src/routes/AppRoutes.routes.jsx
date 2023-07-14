@@ -15,56 +15,56 @@ import PublicRoutes from './Public.routes';
 import AdminRoutes from './Admin.routes';
 import Profile from '../components/Profile';
 
+/**
+ * Component representing the application routes.
+ * Manages the routing configuration for different pages.
+ * @returns {JSX.Element} The rendered component.
+ */
 const AppRoutes = () => {
-	const [isAuthenticated, setisAuth] = useState(true);
-	const [role, setRole] = useState('admin');
-	return (
-		<BrowserRouter>
-			<Navbar />
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [role, setRole] = useState('admin');
 
-			<Routes>
+  return (
+    <BrowserRouter>
+      <Navbar />
 
-				<Route path='/' element={<Home />} />
-				<Route path='/home' element={<Home />} />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/home' element={<Home />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/store' element={<Store />} />
+        <Route path='/product/:id' element={<Product />} />
 
-				<Route path='/about' element={<About />} />
+        <Route path='/login' element={
+          <PublicRoutes isAuth={isAuthenticated}>
+            <Login />
+          </PublicRoutes>
+        } />
 
-				<Route path='/store' element={<Store />} />
+        <Route path='/signUp' element={
+          <PublicRoutes isAuth={isAuthenticated}>
+            <SignUp />
+          </PublicRoutes>
+        } />
 
-				<Route path='/product/:id' element={<Product />} />
+        <Route path='/admin-dashboard' element={
+          <AdminRoutes isAuth={isAuthenticated} role={role}>
+            <AdminDashboard />
+          </AdminRoutes>
+        } />
+        
+        <Route path='/profile' element={
+          <PrivateRoutes isAuth={isAuthenticated}>
+            <Profile />
+          </PrivateRoutes>
+        } />
 
+        <Route path='*' element={<Error404 />} />
+      </Routes>
 
-				<Route path='/login' element={
-					<PublicRoutes isAuth={isAuthenticated}>
-						<Login />
-					</PublicRoutes>
-				} />
-
-				<Route path='/signUp' element={
-					<PublicRoutes isAuth={isAuthenticated}>
-						<SignUp />
-					</PublicRoutes>
-				} />
-
-				<Route path='/admin-dashboard' element={
-					<AdminRoutes isAuth={isAuthenticated} role={role}>
-						<AdminDashboard />
-					</AdminRoutes>
-				} />
-				
-				<Route path='/profile' element={
-					<PrivateRoutes isAuth={isAuthenticated}>
-						<Profile />
-					</PrivateRoutes>
-				} />
-
-				<Route path='*' element={<Error404 />} />
-
-			</Routes>
-
-			<Footer />
-		</BrowserRouter>
-	);
+      <Footer />
+    </BrowserRouter>
+  );
 };
 
 export default AppRoutes;

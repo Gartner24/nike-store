@@ -6,14 +6,14 @@ import { products } from '../data';
 import CheckoutForm from '../components/FormPay';
 
 const Home = () => {
-  // Obtén solo los primeros tres productos
-  const threeProducts = products.slice(0, 1);
+  // Get only the first three products
+  const threeProducts = products.slice(0, 3);
 
   return (
     <div className='MainVideo'>
       <video autoPlay muted loop className='video'>
         <source src={video} type='video/mp4' />
-        Tu navegador no admite la reproducción de videos.
+        Your browser does not support video playback.
       </video>
       <p className='desliza'>Swipe down.</p>
       <Advertisements />
@@ -22,6 +22,10 @@ const Home = () => {
         {threeProducts.map(({ productID, name, image, description, price }) => (
           <div className="col-md-4" key={productID}>
             <ProductList
+              name={name}
+              image={image}
+              description={description}
+              price={price}
             />
           </div>
         ))}
@@ -31,4 +35,3 @@ const Home = () => {
 };
 
 export default Home;
-

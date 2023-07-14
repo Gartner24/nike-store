@@ -10,118 +10,113 @@ import CreateProduct from '../components/CreateProduct';
 import ProductDashboard from '../components/ProductDashboard';
 
 const AdminDashboard = () => {
-	const [dashboardState, setDashboardState] = useState(0);
-	const [products, setProducts] = useState([]);
-	const [images, setImages] = useState([]);
-	const [createProduct, setCreateProduct] = useState(false);
-	const [inventory, setInventory] = useState([]);
-	const [loading, setLoading] = useState(false);
+  // State variables
+  const [dashboardState, setDashboardState] = useState(0);
+  const [products, setProducts] = useState([]);
+  const [images, setImages] = useState([]);
+  const [createProduct, setCreateProduct] = useState(false);
+  const [inventory, setInventory] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [editingProduct, setEditingProduct] = useState(null); // State to hold the product being edited
 
-	// Inventory Dashboard variables
-	// 		productID: product.productID,
-	// 		quantity: 1,
-	// 		stockMin: 0,
-	// 		stockMax: 200,
+  // Fetch all products from the API
+  const getProducts = async () => {
+    const data = await getData(urlProducts);
+    setProducts(data);
+  };
 
-	// State to hold the product being edited
-	const [editingProduct, setEditingProduct] = useState(null);
+  // Fetch all images from the API
+  const getImages = async () => {
+    const data = await getData(urlImages);
+    setImages(data);
+  };
 
-	// get all products
-	const getProducts = async () => {
-		const data = await getData(urlProducts);
-		setProducts(data);
-	};
+  // Handle form submission
+  const handleSubmit = async (e, productId) => {
+    e.preventDefault();
+    // Update the product using the editingProduct state
+    const updatedProduct = {
+      ...editingProduct,
+      id: productId,
+    };
+    await putData(urlProducts + '/' + productId, updatedProduct);
+    // Clear the editing state and refresh the products
+    setEditingProduct(null);
+    getProducts();
+  };
 
-	// get all images
-	const getImages = async () => {
-		const data = await getData(urlImages);
-		setImages(data);
-	};
+  // Handle product deletion
+  const handleDelete = async (productId) => {
+    await deleteData(urlProducts + productId);
+    getProducts();
+    setEditingProduct(null);
+  };
 
-	const handleSubmit = async (e, productId) => {
-		e.preventDefault();
-		// Update the product using the editingProduct state
-		const updatedProduct = {
-			...editingProduct,
-			id: productId,
-		};
-		await putData(urlProducts + '/' + productId, updatedProduct);
-		// Clear the editing state and refresh the products
-		setEditingProduct(null);
-		getProducts();
-	};
+  // Fetch products and images based on dashboard state
+  useEffect(() => {
+    try {
+      if (dashboardState === 1) {
+        setLoading(true);
+        getProducts();
+        getImages();
+        setLoading(false);
+      } else if (dashboardState === 2) {
+        setLoading(true);
+        getData(urlInventory).then((data) => {
+          setInventory(data);
+          setLoading(false);
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dashboardState]);
 
-	const handleDelete = async (productId) => {
-		await deleteData(urlProducts + productId);
-		getProducts();
-		setEditingProduct(null);
-	};
+  // Display loading state while data is being fetched
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
 
-	useEffect(() => {
-		try {
-			if (dashboardState === 1) {
-				setLoading(true);
-				getProducts();
-				getImages();
-				setLoading(false);
-			} else if (dashboardState === 2) {
-				setLoading(true);
-				getData(urlInventory).then((data) => {
-					setInventory(data);
-					setLoading(false);
-				});
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	}, [dashboardState]);
+  return (
+    <>
+      <div className='dashboardContainer'>
+        <h1>Dashboard</h1>
+        <>
+          <button onClick={() => setDashboardState(1)}>
+            Products
+          </button>
+          <button onClick={() => setDashboardState(2)}>
+            Inventory
+          </button>
+          {dashboardState !== 0 && (
+            <button onClick={() => setDashboardState(0)}>
+              Go Back
+            </button>
+          )}
+        </>
 
-	if (loading) {
-		return <h1>Loading...</h1>;
-	}
-
-	return (
-		<>
-			<div className='dashboardContainer'>
-				<h1>Dashboard</h1>
-				<>
-					<button onClick={() => setDashboardState(1)}>
-						Productos
-					</button>
-					<button onClick={() => setDashboardState(2)}>
-						Inventario
-					</button>
-					{
-						dashboardState !== 0 && (
-							<button onClick={() => setDashboardState(0)}>
-								Regresar
-							</button>
-						)
-					}
-				</>
-
-				{dashboardState === 1 && (
-					<>
-						<ProductDashboard
-							products={products}
-							setProducts={setProducts}
-							editingProduct={editingProduct}
-							setEditingProduct={setEditingProduct}
-							createProduct={createProduct}
-							setCreateProduct={setCreateProduct}
-							handleSubmit={handleSubmit}
-							handleDelete={handleDelete}
-						/>
-					</>
-				)}
-				{dashboardState === 2 && (
-					<>
-						<h2>Inventario</h2>
-					</>
-				)}
-			</div>
-		</>
-	);
+        {dashboardState === 1 && (
+          <>
+            <ProductDashboard
+              products={products}
+              setProducts={setProducts}
+              editingProduct={editingProduct}
+              setEditingProduct={setEditingProduct}
+              createProduct={createProduct}
+              setCreateProduct={setCreateProduct}
+              handleSubmit={handleSubmit}
+              handleDelete={handleDelete}
+            />
+          </>
+        )}
+        {dashboardState === 2 && (
+          <>
+            <h2>Inventory</h2>
+          </>
+        )}
+      </div>
+    </>
+  );
 };
 
 export default AdminDashboard;
