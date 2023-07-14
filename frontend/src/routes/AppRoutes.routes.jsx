@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Login from '../components/auth/Login';
@@ -13,12 +13,24 @@ import Product from '../containers/Product';
 import PrivateRoutes from './Private.routes';
 import PublicRoutes from './Public.routes';
 import AdminRoutes from './Admin.routes';
+import parseJwt from '../helpers/parseJwt';
 import Profile from '../components/Profile';
 import CartPage from '../components/CartPage';
 
 const AppRoutes = () => {
-	const [isAuthenticated, setisAuth] = useState(true);
-	const [role, setRole] = useState('admin');
+	const [isAuthenticated, setisAuth] = useState(false);
+	const [role, setRole] = useState();
+  
+	useEffect(() => {
+	  const token = localStorage.getItem('token');
+	  if (token) {
+		const parsedToken = parseJwt(token);
+		const isTokenValid = parsedToken.exp * 1000 > Date.now();
+		setisAuth(isTokenValid);
+		setRole(parsedToken.role);
+	  }
+	}, []);
+  
 	return (
 		<BrowserRouter>
 			<Navbar />
@@ -66,6 +78,6 @@ const AppRoutes = () => {
 			<Footer />
 		</BrowserRouter>
 	);
-};
-
-export default AppRoutes;
+  };
+  
+  export default AppRoutes;

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import CreateProduct from '../components/CreateProduct';
 const ProductDashboard = ({
     products,
     setProducts,
@@ -10,6 +11,7 @@ const ProductDashboard = ({
     handleSubmit,
     handleDelete,
 }) => {
+
 	return (
 		<>
 			<h2>Productos</h2>

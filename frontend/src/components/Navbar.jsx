@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useContext } from "react";
 import "./css/navbar.css";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
@@ -10,10 +11,12 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import InfoIcon from '@mui/icons-material/Info';
 import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
 import HomeIcon from '@mui/icons-material/Home';
-import useStore from "../store/useStore";
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import { AuthContext } from "../store/AuthContext";
 
+const UserNavbar = () => {
+  const { handleLogout } = useContext(AuthContext);
 
-function UserNavbar() {
   return (
     <header className="App-menu">
       <Link to="/">
@@ -37,7 +40,7 @@ function UserNavbar() {
             </Link>
           </li>
           <li>
-            <Link to="/">
+            <Link to="/" onClick={handleLogout}>
               <LogoutIcon className="ico" />
             </Link>
           </li>
@@ -48,6 +51,8 @@ function UserNavbar() {
 }
 
 const AdminNavbar = () => {
+  const { handleLogout } = useContext(AuthContext);
+
   return (
     <header className="App-menu">
       <Link to="/">
@@ -81,7 +86,7 @@ const AdminNavbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/" >
+            <Link to="/" onClick={handleLogout}>
               <LogoutIcon className="ico" />
             </Link>
           </li>
@@ -90,6 +95,7 @@ const AdminNavbar = () => {
     </header>
   );
 }
+
 
 const UnregisteredNavbar = () => {
   return (
@@ -123,11 +129,10 @@ const UnregisteredNavbar = () => {
       </nav>
     </header>
   );
-}
+};
 
 const Navbar = () => {
-  const [isAuthenticated, setIsAuthenticated] = React.useState(true);
-  const [isAdmin, setIsAdmin] = React.useState(false);
+  const { isAuthenticated, isAdmin } = useContext(AuthContext);
 
   if (isAuthenticated && isAdmin) {
     return <AdminNavbar />;
@@ -136,6 +141,6 @@ const Navbar = () => {
   } else {
     return <UnregisteredNavbar />;
   }
-}
+};
 
 export default Navbar;
