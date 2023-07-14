@@ -64,7 +64,16 @@ const AdminDashboard = () => {
 		// Clear the editing state and refresh the products
 		setEditingInventory(null);
 		getProducts();
+
 	};
+
+	const getInventory = async () => {
+		getData(urlInventory).then((data) => {
+			setInventory(data);
+			setLoading(false);
+			console.log(data)
+		});
+	}
 
 	useEffect(() => {
 		try {
@@ -75,15 +84,12 @@ const AdminDashboard = () => {
 				setLoading(false);
 			} else if (dashboardState === 2) {
 				setLoading(true);
-				getData(urlInventory).then((data) => {
-					setInventory(data);
-					setLoading(false);
-				});
+				getInventory();
 			}
 		} catch (error) {
 			console.log(error);
 		}
-	}, [dashboardState]);
+	}, [dashboardState, createProduct, editingProduct, editingInventory]);
 
 	if (loading) {
 		return <h1>Loading...</h1>;
@@ -100,13 +106,11 @@ const AdminDashboard = () => {
 					<button onClick={() => setDashboardState(2)}>
 						Inventario
 					</button>
-					{
-						dashboardState !== 0 && (
-							<button onClick={() => setDashboardState(0)}>
-								Regresar
-							</button>
-						)
-					}
+					{dashboardState !== 0 && (
+						<button onClick={() => setDashboardState(0)}>
+							Regresar
+						</button>
+					)}
 				</>
 
 				{dashboardState === 1 && (
