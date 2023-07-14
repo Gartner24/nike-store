@@ -70,6 +70,7 @@ productImageRouter.post('/add/:productID', upload.single('image'), async (req, r
     }
 });
 
+// Delete a product image
 productImageRouter.delete('/:productImageID', async (req, res) => {
     try {
         const { productImageID } = req.params;

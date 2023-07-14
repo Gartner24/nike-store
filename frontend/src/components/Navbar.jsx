@@ -3,20 +3,10 @@ import "./css/navbar.css";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import StoreIcon from "@mui/icons-material/Store";
-import InfoIcon from "@mui/icons-material/Info";
 import LoginIcon from "@mui/icons-material/Login";
-import CartIcon from "./CartIcon";
-import CartMenu from "./CartMenu";
 
 const Navbar = () => {
-  const [cartMenuOpen, setCartMenuOpen] = React.useState(false);
-  const handleCartIconClick = () => {
-    setCartMenuOpen(!cartMenuOpen);
-  };
-
-  // Assuming you have a variable `itemCount` that represents the number of items in the cart
-  const itemCount = 0; // Replace with your actual item count
-
+  console.log();
   return (
     <div>
       <header className="App-menu">
@@ -34,13 +24,6 @@ const Navbar = () => {
               <Link to="/about">
                 <InfoIcon className="ico" />
               </Link>
-            </li>
-            {/* carrito */}
-            <li>
-              <div className="cart-container">
-                <CartIcon itemCount={itemCount} onClick={handleCartIconClick} />
-                {cartMenuOpen && <CartMenu />}
-              </div>
             </li>
             <li>
               <Link to="/login">
@@ -85,6 +68,19 @@ const Navbar = () => {
     // 	</header>
     // </div>
   );
-};
+}
+
+const Navbar = () => {
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const [isAdmin, setIsAdmin] = React.useState(false);
+
+  if (isAuthenticated && isAdmin) {
+    return <AdminNavbar />;
+  } else if (isAuthenticated) {
+    return <UserNavbar />;
+  } else {
+    return <UnregisteredNavbar />;
+  }
+}
 
 export default Navbar;

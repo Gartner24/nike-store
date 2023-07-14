@@ -2,32 +2,32 @@
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: space-between;
   align-items: center;
   align-content: center;
-  object-fit: cover;
-  margin: 0 10%;
+  padding: 0 15%;
+  justify-content: space-between;
 }
 
 .logo {
   max-width: 140px;
+  justify-self: left;
 }
 
 .options {
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
   width: 100%;
   align-items: center;
-  margin-right: 5%;
   font-size: 100%;
   color: #ff6600;
   list-style: none;
-  gap: 5%;
+  gap: 20%;
+  padding: 0;
+  margin: 0;
 }
 
 li {
   text-decoration: none;
-  font-size: 60px;
 }
 
 .cart-icon {
@@ -36,7 +36,7 @@ li {
 }
 
 .ico {
-  color: #ff6600;
+  color: chocolate;
   font-size: 40px;
 }
 

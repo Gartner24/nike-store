@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
@@ -16,6 +16,7 @@
     "@mui/icons-material": "^5.14.0",
     "@stripe/react-stripe-js": "^1.0.0",
     "@stripe/stripe-js": "^1.0.0",
+    "animate.css": "^4.1.1",
     "axios": "^1.4.0",
     "formik": "^2.4.2",
     "react": "^18.2.0",
@@ -25,7 +26,8 @@
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.14.1",
     "stripe": "^12.12.0",
-    "yup": "^1.2.0"
+    "yup": "^1.2.0",
+    "zustand": "^4.3.9"
   },
   "devDependencies": {
     "@types/react": "^18.2.14",
