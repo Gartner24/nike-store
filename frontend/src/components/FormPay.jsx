@@ -6,8 +6,10 @@ import {
   useElements
 } from "@stripe/react-stripe-js";
 
-
-
+/**
+ * CheckoutForm Component
+ * Renders a form for handling payments using Stripe.
+ */
 const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
@@ -86,11 +88,14 @@ const CheckoutForm = () => {
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
+      {/* Email input for link authentication */}
       <LinkAuthenticationElement
         id="link-authentication-element"
         onChange={(e) => setEmail(e.target.value)}
       />
+      {/* Payment element */}
       <PaymentElement id="payment-element" options={paymentElementOptions} />
+      {/* Submit button */}
       <button disabled={isLoading || !stripe || !elements} id="submit">
         <span id="button-text">
           {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
@@ -101,6 +106,5 @@ const CheckoutForm = () => {
     </form>
   );
 }
-
 
 export default CheckoutForm;

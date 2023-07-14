@@ -4,6 +4,9 @@ import getData from '../helpers/getData';
 import putData from '../helpers/putData';
 import { urlUsers } from '../helpers/urls';
 
+/**
+ * Component for displaying and editing user profile information.
+ */
 const Profile = () => {
 	const [user, setUser] = useState({
 		userID: 1,
@@ -16,6 +19,10 @@ const Profile = () => {
 	});
 	const [edit, setEdit] = useState(false);
 
+	/**
+	 * Handles the change event of the input fields.
+	 * @param {Object} e - Event object.
+	 */
 	const handleChange = (e) => {
 		setUser({
 			...user,
@@ -23,24 +30,30 @@ const Profile = () => {
 		});
 	};
 
+	/**
+	 * Handles the submit event of the form.
+	 * @param {Object} e - Event object.
+	 */
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setEdit(!edit);
-        const updateUser = async () => {
-            const response = await putData(`${urlUsers}/${user.userID}`, user);
-            console.log(response);
-        }
-        updateUser();
+		const updateUser = async () => {
+			const response = await putData(`${urlUsers}/${user.userID}`, user);
+			console.log(response);
+		};
+		updateUser();
 	};
 
-    useEffect(() => {
-        const getUser = async () => {
-            const response = await getData(`${urlUsers}/${user.userID}`);
-            setUser(response);
-        }
-        getUser();
-    }, []);
-    
+	useEffect(() => {
+		/**
+		 * Fetches the user data from the API.
+		 */
+		const getUser = async () => {
+			const response = await getData(`${urlUsers}/${user.userID}`);
+			setUser(response);
+		};
+		getUser();
+	}, []);
 
 	return (
 		<>

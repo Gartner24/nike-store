@@ -12,14 +12,19 @@ import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
 import HomeIcon from '@mui/icons-material/Home';
 import useStore from "../store/useStore";
 
-
+/**
+ * UserNavbar Component
+ * Renders the navigation bar for authenticated users.
+ */
 function UserNavbar() {
   return (
     <header className="App-menu">
+      {/* Logo */}
       <Link to="/">
         <img src={logo} alt="Logo" className="logo" />
       </Link>
       <nav>
+        {/* Navigation options */}
         <ul className="options">
           <li>
             <Link to="/store">
@@ -47,13 +52,19 @@ function UserNavbar() {
   );
 }
 
+/**
+ * AdminNavbar Component
+ * Renders the navigation bar for administrators.
+ */
 const AdminNavbar = () => {
   return (
     <header className="App-menu">
+      {/* Logo */}
       <Link to="/">
         <img src={logo} alt="Logo" className="logo" />
       </Link>
       <nav>
+        {/* Navigation options */}
         <ul className="options">
           <li>
             <Link to="/">
@@ -91,13 +102,19 @@ const AdminNavbar = () => {
   );
 }
 
+/**
+ * UnregisteredNavbar Component
+ * Renders the navigation bar for unregistered users.
+ */
 const UnregisteredNavbar = () => {
   return (
     <header className="App-menu">
+      {/* Logo */}
       <Link to="/">
         <img src={logo} alt="Logo" className="logo" />
       </Link>
       <nav>
+        {/* Navigation options */}
         <ul className="options">
           <li>
             <Link to="/">
@@ -125,6 +142,10 @@ const UnregisteredNavbar = () => {
   );
 }
 
+/**
+ * Navbar Component
+ * Renders the appropriate navigation bar based on the user's authentication and admin status.
+ */
 const Navbar = () => {
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
   const [isAdmin, setIsAdmin] = React.useState(false);

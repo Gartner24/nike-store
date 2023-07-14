@@ -1,9 +1,13 @@
-import React from 'react'
+import React from 'react';
 
+/**
+ * InventoryDashboard Component
+ * Renders the inventory dashboard.
+ */
 const InventoryDashboard = () => {
   return (
     <div>InventoryDashboard</div>
-  )
+  );
 }
 
-export default InventoryDashboard
+export default InventoryDashboard;

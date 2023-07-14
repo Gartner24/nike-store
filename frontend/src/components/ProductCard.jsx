@@ -4,14 +4,21 @@ import getData from '../helpers/getData';
 import { urlProducts, urlImages } from '../helpers/urls';
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * ProductList Component
+ * Renders a list of products with their images, names, prices, and an "Add to Cart" button.
+ */
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
 
+  /**
+   * Retrieves the image URL for a product.
+   * @param {string} id - The ID of the product.
+   * @returns {Promise<string>} The image URL.
+   */
   const getImage = async (id) => {
-    const data = await getData(urlImages + id).then(
-      (data) => data[0].imageURL
-    );
+    const data = await getData(urlImages + id).then((data) => data[0].imageURL);
     return data;
   };
 
@@ -25,6 +32,10 @@ const ProductList = () => {
 
   const navigate = useNavigate();
 
+  /**
+   * Handles the click event for a product item and navigates to the product details page.
+   * @param {string} id - The ID of the product.
+   */
   const handleClick = (id) => {
     navigate(`/product/${id}`);
   };
@@ -37,7 +48,7 @@ const ProductList = () => {
           <div className="info-product">
             <h2>{product.productName}</h2>
             <p className="price">${product.price}</p>
-            <button>Añadir al carrito</button>
+            <button>Add to Cart</button>
           </div>
         </div>
       ))}

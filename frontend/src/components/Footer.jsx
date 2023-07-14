@@ -12,15 +12,22 @@ const developers = [
   { name: "Julian Andres Corral Gomez", github: "https://github.com/JulianCorralG" },
 ];
 
+/**
+ * Footer Component
+ * Renders the footer section with developer information and legal notice.
+ */
 const Footer = () => {
   return (
     <footer>
       <div className="footer-container">
+        {/* Developers section */}
         <div className="footer-developers">
           <p>Developers:</p>
           <ul>
+            {/* Render each developer */}
             {developers.map((developer, index) => (
               <li key={index}>
+                {/* Link to developer's GitHub profile */}
                 <a href={developer.github} target="_blank" rel="noopener noreferrer">
                   {developer.name}
                 </a>
@@ -28,8 +35,9 @@ const Footer = () => {
             ))}
           </ul>
         </div>
+        {/* Legal notice section */}
         <div className="footer-legal">
-          <p>© 2023 Nike, Inc. Todos los derechos reservados</p>
+          <p>© 2023 Nike, Inc. All rights reserved</p>
         </div>
       </div>
     </footer>
