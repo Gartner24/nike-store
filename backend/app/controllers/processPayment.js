@@ -33,8 +33,8 @@ const openStripePaymentLink = async (carts, totalPrice, userID, shippingAddress)
 			payment_method_types: ['card'],
 			line_items: products,
 			mode: 'payment',
-			success_url: `http://localhost:8080/api/payment/success?userID=${userID}&totalPrice=${totalPrice}&shippingAddress=${shippingAddress}`,
-			cancel_url: 'http://localhost:8080/api/payment/cancel',
+			success_url: `http://https://nike-fake-store.onrender.com/api/payment/success?userID=${userID}&totalPrice=${totalPrice}&shippingAddress=${shippingAddress}`,
+			cancel_url: 'http://https://nike-fake-store.onrender.com/api/payment/cancel',
 		});
 
 		return { url: session.url };
