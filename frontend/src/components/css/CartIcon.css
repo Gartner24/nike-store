@@ -1,0 +1,16 @@
+.cart-icon {
+    font-size: 24px; /* Tamaño del icono */
+    transition: transform 0.3s; /* Transición para el efecto hover */
+    cursor: pointer; /* Cursor de la mano */
+  }
+  
+  .cart-icon:hover {
+    transform: scale(1.5); /* Escala del icono en el efecto hover */
+  }
+
+/*Make the icon responsive*/
+@media screen and (max-width: 500px) {
+  .cart-icon {
+    font-size: 20px;
+  }
+}
