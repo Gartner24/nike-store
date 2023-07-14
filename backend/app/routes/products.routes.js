@@ -179,3 +179,5 @@ productRouter.delete('/:productID', async (req, res) => {
 		res.status(500).json({ message: 'Error deleting product' });
 	}
 });
+
+export default productRouter;
