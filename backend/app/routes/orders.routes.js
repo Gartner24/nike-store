@@ -11,7 +11,7 @@ orderRouter.post('/', async (req, res) => {
 	const { userID, shippingAddress } = req.body;
 
 	try {
-		// Sumar el valor de los productos en los carritos activos del mismo usuario
+		// Sum the value of products in active carts of the same user
 		const activeCarts = await ShoppingCart.findAll({
 			where: {
 				userID,
@@ -21,7 +21,7 @@ orderRouter.post('/', async (req, res) => {
 
 		let totalPrice = 0;
 
-		// Calcular el precio total de los productos
+		// Calculate the total price of the products
 		for (const cart of activeCarts) {
 			const product = await Product.findOne({
 				where: { productID: cart.productID },
@@ -30,25 +30,25 @@ orderRouter.post('/', async (req, res) => {
 			totalPrice += product.price * cart.quantity;
 		}
 
-		// Llamar al controlador de Stripe y abrir el enlace de pago
+		// Call the Stripe controller and open the payment link
 		const paymentLinkResponse = await openStripePaymentLink(activeCarts, totalPrice, userID, shippingAddress);
 
 		if (paymentLinkResponse.url !== undefined) {
-			// Enviar el enlace de pago al cliente
+			// Send the payment link to the client
 			return res.status(200).json({
-				message: 'Enlace de pago abierto',
+				message: 'Payment link opened',
 				url: paymentLinkResponse.url,
 			});
 		} else {
-			// Si el pago no fue exitoso, manejar cada posible suceso en paymentLinkResponse.error
+			// If payment was unsuccessful, handle each possible event in paymentLinkResponse.error
 			return res.status(400).json({
-				message: 'Error en el pago',
+				message: 'Payment error',
 				error: paymentLinkResponse.error,
 			});
 		}
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ message: 'Error al procesar la orden' });
+		res.status(500).json({ message: 'Error processing the order' });
 	}
 });
 
@@ -58,7 +58,7 @@ orderRouter.get('/', async (req, res) => {
 		res.status(200).json(orders);
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ message: 'Error al obtener las órdenes' });
+		res.status(500).json({ message: 'Error retrieving the orders' });
 	}
 });
 

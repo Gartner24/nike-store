@@ -3,83 +3,83 @@ import User from '../models/user.models.js';
 
 const userRoutes = express.Router();
 
-// (GET)
-
-// Ruta principal (base path /api/users)
+// Get all users
 userRoutes.get('/', async (req, res) => {
     try {
         const users = await User.findAll();
         res.status(200).json(users);
     } catch (error) {
-        res.status(400).json({ message: 'Something went wrong', data: {} });
+        res.status(500).json({ message: 'Something went wrong', data: {} });
     }
 });
 
-// Ruta para obtener un usuario por su ID (base path /api/users/:id) (GET)
+// Get a user by ID
 userRoutes.get('/:id', async (req, res) => {
     try {
         const user = await User.findByPk(req.params.id);
-        res.status(200).json(user);
+        if (user) {
+            res.status(200).json(user);
+        } else {
+            res.status(404).json({ message: 'User not found', data: {} });
+        }
     } catch (error) {
-        res.status(400).json({ message: 'Something went wrong', data: {} });
+        res.status(500).json({ message: 'Something went wrong', data: {} });
     }
 });
 
-// Ruta para obtener un usuario por su username (base path /api/users/username/:username) (GET)
+// Get a user by username
 userRoutes.get('/username/:username', async (req, res) => {
     try {
         const user = await User.findOne({
             where: {
-                username: req.params.username
-            }
+                username: req.params.username,
+            },
         });
-        res.status(200).json(user);
+        if (user) {
+            res.status(200).json(user);
+        } else {
+            res.status(404).json({ message: 'User not found', data: {} });
+        }
     } catch (error) {
-        res.status(400).json({ message: 'Something went wrong', data: {} });
+        res.status(500).json({ message: 'Something went wrong', data: {} });
     }
 });
 
-// (POST)
-
-// Ruta para crear un usuario (base path /api/users) (POST)
+// Create a user
 userRoutes.post('/', async (req, res) => {
     try {
         const user = await User.create(req.body);
         res.status(201).json({ message: 'User created successfully', data: user });
     } catch (error) {
-        res.status(400).json({ message: 'Something went wrong', data: {} });
+        res.status(500).json({ message: 'Something went wrong', data: {} });
     }
 });
 
-// (PUT)
-
-// Ruta para actualizar un usuario por su ID (base path /api/users/:id) (PUT)
+// Update a user by ID
 userRoutes.put('/:id', async (req, res) => {
     try {
         const user = await User.update(req.body, {
             where: {
-                userID: req.params.id
-            }
+                userID: req.params.id,
+            },
         });
         res.status(200).json({ message: 'User updated successfully', data: user });
     } catch (error) {
-        res.status(400).json({ message: 'Something went wrong', data: {} });
+        res.status(500).json({ message: 'Something went wrong', data: {} });
     }
 });
 
-// (DELETE)
-
-// Ruta para eliminar un usuario por su ID (base path /api/users/:id) (DELETE)
+// Delete a user by ID
 userRoutes.delete('/:id', async (req, res) => {
     try {
         const user = await User.destroy({
             where: {
-                userID: req.params.id
-            }
+                userID: req.params.id,
+            },
         });
         res.status(200).json({ message: 'User deleted successfully', data: user });
     } catch (error) {
-        res.status(400).json({ message: 'Something went wrong', data: {} });
+        res.status(500).json({ message: 'Something went wrong', data: {} });
     }
 });
 

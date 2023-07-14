@@ -1,5 +1,4 @@
 import express from 'express';
-
 import ProductImage from '../models/productImages.model.js';
 import cloudinary from '../controllers/cloudinary.js';
 import multer from 'multer';
@@ -43,7 +42,7 @@ productImageRouter.post('/add/:productID', upload.single('image'), async (req, r
         if (!imageFile) {
             return res.status(400).json({ message: 'No image file provided' });
         }
-        // Guardar el archivo temporalmente en el sistema de archivos
+        // Save the file temporarily to the file system
         const tempFilePath = `./uploads/${imageFile.originalname}`;
         fs.writeFileSync(tempFilePath, imageFile.buffer);
         const result = await cloudinary.uploader.upload(tempFilePath, {
@@ -53,7 +52,7 @@ productImageRouter.post('/add/:productID', upload.single('image'), async (req, r
                 // Additional transformations can be added here if needed
             ],
         });
-        // Eliminar el archivo temporal después de cargarlo en Cloudinary
+        // Delete the temporary file after uploading it to Cloudinary
         fs.unlinkSync(tempFilePath);
         const imageURL = result.secure_url;
         // Create a new ProductImage record in the database

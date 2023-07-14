@@ -10,32 +10,32 @@ import authenticationRouter from './authentication/authentication.routes.js';
 
 const router = express.Router();
 
-// Ruta principal (base path /api)
+// Main route (base path: /api)
 router.get('/', (req, res) => {
 	res.status(200).json({
 		message: 'Welcome to the API',
 	});
 });
 
-// Rutas para los usuarios (base path: /api/users)
+// User routes (base path: /api/users)
 router.use('/users', userRoutes);
 
-// Rutas para los productos (base path: /api/products)
+// Product routes (base path: /api/products)
 router.use('/products', productRouter);
 
-// Rutas para las imagenes de los productos (base path: /api/productImages)
+// Product image routes (base path: /api/productImages)
 router.use('/images', productImageRouter);
 
-// Rutas para el inventario (base path: /api/inventory)
+// Inventory routes (base path: /api/inventory)
 router.use('/inventory', inventoryRouter);
 
-// Rutas para los pedidos (base path: /api/orders)
+// Order routes (base path: /api/orders)
 router.use('/orders', ordersRouters);
 
-// Rutas para el carrito (base path: /api/cart)
+// Cart routes (base path: /api/cart)
 router.use('/cart', cartRouter);
 
-// Rutas para el pago (base path: /api/payment)
+// Payment routes (base path: /api/payment)
 router.use('/payment', paymentRouter);
 
 router.use('/authentication', authenticationRouter)

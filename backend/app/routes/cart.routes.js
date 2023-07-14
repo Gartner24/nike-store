@@ -6,13 +6,12 @@ import Inventory from '../models/inventory.model.js';
 
 const cartRouter = express.Router();
 
-// Agregar un producto al carrito
-// Agregar un producto al carrito de compras
+// Add a product to the shopping cart
 cartRouter.post('/add', async (req, res) => {
 	try {
 		const { userID, productID, quantity } = req.body;
 
-		// Verificar si el inventario tiene suficiente cantidad disponible
+		// Check if the inventory has enough quantity available
 		const inventory = await Inventory.findOne({
 			where: { productID },
 		});
@@ -20,10 +19,10 @@ cartRouter.post('/add', async (req, res) => {
 		if (!inventory || inventory.quantity < quantity) {
 			return res
 				.status(400)
-				.json({ message: 'No hay suficiente cantidad disponible' });
+				.json({ message: 'Not enough quantity available' });
 		}
 
-		// Agregar el producto al carrito de compras
+		// Add the product to the shopping cart
 		const cartItem = await ShoppingCart.create({
 			userID,
 			productID,
@@ -31,30 +30,30 @@ cartRouter.post('/add', async (req, res) => {
 		});
 
 		res.status(201).json({
-			message: 'Producto agregado al carrito',
+			message: 'Product added to the cart',
 			cartItem,
 		});
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({
-			message: 'Error al agregar el producto al carrito',
+			message: 'Error adding the product to the cart',
 		});
 	}
 });
 
-// Obtener el carrito de un usuario
+// Get a user's shopping cart
 cartRouter.get('/user/:userID', async (req, res) => {
 	try {
 		const userID = req.params.userID;
 
-		// Verificar si el usuario existe
+		// Check if the user exists
 		const user = await User.findByPk(userID);
 
 		if (!user) {
-			return res.status(404).json({ message: 'Usuario no encontrado' });
+			return res.status(404).json({ message: 'User not found' });
 		}
 
-		// Obtener los productos en el carrito del usuario
+		// Get the products in the user's shopping cart
 		const cartItems = await ShoppingCart.findAll({
 			where: { userID },
 		});
@@ -63,60 +62,60 @@ cartRouter.get('/user/:userID', async (req, res) => {
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({
-			message: 'Error al obtener el carrito del usuario',
+			message: 'Error getting the user\'s shopping cart',
 		});
 	}
 });
 
-// Actualizar la cantidad de un producto en el carrito
+// Update the quantity of a product in the cart
 cartRouter.put('/:cartID', async (req, res) => {
 	try {
 		const cartID = req.params.cartID;
 		const { quantity } = req.body;
 
-		// Verificar si el registro del carrito existe
+		// Check if the cart item exists
 		const cartItem = await ShoppingCart.findByPk(cartID);
 
 		if (!cartItem) {
 			return res
 				.status(404)
-				.json({ message: 'Registro del carrito no encontrado' });
+				.json({ message: 'Cart item not found' });
 		}
 
-		// Actualizar la cantidad del producto
+		// Update the product quantity
 		await cartItem.update({ quantity });
 
-		res.status(200).json({ message: 'Cantidad actualizada', cartItem });
+		res.status(200).json({ message: 'Quantity updated', cartItem });
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({
-			message: 'Error al actualizar la cantidad del producto',
+			message: 'Error updating the product quantity',
 		});
 	}
 });
 
-// Eliminar un producto del carrito
+// Remove a product from the cart
 cartRouter.delete('/:cartID', async (req, res) => {
 	try {
 		const cartID = req.params.cartID;
 
-		// Verificar si el registro del carrito existe
+		// Check if the cart item exists
 		const cartItem = await ShoppingCart.findByPk(cartID);
 
 		if (!cartItem) {
 			return res
 				.status(404)
-				.json({ message: 'Registro del carrito no encontrado' });
+				.json({ message: 'Cart item not found' });
 		}
 
-		// Eliminar el producto del carrito
+		// Remove the product from the cart
 		await cartItem.destroy();
 
-		res.status(200).json({ message: 'Producto eliminado del carrito' });
+		res.status(200).json({ message: 'Product removed from the cart' });
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({
-			message: 'Error al eliminar el producto del carrito',
+			message: 'Error removing the product from the cart',
 		});
 	}
 });

@@ -10,7 +10,7 @@ const upload = multer();
 
 const productRouter = express.Router();
 
-// Crear un producto
+// Create a product
 productRouter.post('/', upload.single('image'), async (req, res) => {
 	try {
 		const { productName, description, price } = req.body;
@@ -20,7 +20,7 @@ productRouter.post('/', upload.single('image'), async (req, res) => {
 			return res.status(400).json({ message: 'No image file provided' });
 		}
 
-		// Guardar el archivo temporalmente en el sistema de archivos
+		// Save the file temporarily to the file system
 		const tempFilePath = `./uploads/${imageFile.originalname}`;
 		fs.writeFileSync(tempFilePath, imageFile.buffer);
 
@@ -32,7 +32,7 @@ productRouter.post('/', upload.single('image'), async (req, res) => {
 			],
 		});
 
-		// Eliminar el archivo temporal después de cargarlo en Cloudinary
+		// Delete the temporary file after uploading it to Cloudinary
 		fs.unlinkSync(tempFilePath);
 
 		const imageURL = result.secure_url;
@@ -66,7 +66,7 @@ productRouter.post('/', upload.single('image'), async (req, res) => {
 	}
 });
 
-// Obtener todos los productos
+// Get all products
 productRouter.get('/', async (req, res) => {
 	try {
 		const products = await Product.findAll();
@@ -75,33 +75,33 @@ productRouter.get('/', async (req, res) => {
 		} else return res.status(404).json({ message: 'Products not found' });
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ message: 'Error al obtener los productos' });
+		res.status(500).json({ message: 'Error retrieving products' });
 	}
 });
 
-// Obtener un producto por su ID
+// Get a product by its ID
 productRouter.get('/:productID', async (req, res) => {
 	try {
 		const productID = req.params.productID;
 		const product = await Product.findByPk(productID);
 
 		if (!product) {
-			return res.status(404).json({ message: 'Producto no encontrado' });
+			return res.status(404).json({ message: 'Product not found' });
 		}
 
 		res.status(200).json(product);
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ message: 'Error al obtener el producto' });
+		res.status(500).json({ message: 'Error retrieving product' });
 	}
 });
 
-// Actualizar un producto
+// Update a product
 productRouter.put('/:productID', async (req, res) => {
-  try {
-    const productID = req.params.productID;
-    const { productName, description, price } = req.body;
-    const imageFile = req.file; // Assuming the file field in the request is named 'image'
+	try {
+		const productID = req.params.productID;
+		const { productName, description, price } = req.body;
+		const imageFile = req.file; // Assuming the file field in the request is named 'image'
 
 		const product = await Product.findByPk(productID);
 
@@ -111,37 +111,37 @@ productRouter.put('/:productID', async (req, res) => {
 
 		// If an image file is uploaded, update the image in Cloudinary and save the new imageURL
 		if (imageFile) {
-			cloudinary.uploader.upload(
-				imageFile.path,
-				{ folder: 'product-images' },
-				async (error, result) => {
-					if (error) {
-						console.log(error);
-						return res.status(500).json({
-							message: 'Error uploading image to Cloudinary',
-						});
-					}
+			const tempFilePath = `./uploads/${imageFile.originalname}`;
+			fs.writeFileSync(tempFilePath, imageFile.buffer);
 
-					const imageURL = result.secure_url;
+			const result = await cloudinary.uploader.upload(tempFilePath, {
+				folder: 'product-images',
+				transformation: [
+					{ width: 800, height: 600, crop: 'fill' },
+					// Additional transformations can be added here if needed
+				],
+			});
 
-					await product.update({
-						productName,
-						description,
-						price,
-					});
+			fs.unlinkSync(tempFilePath);
 
-					// Update the corresponding ProductImage record in the database
-					await ProductImage.update(
-						{ imageURL },
-						{ where: { productID, isFront: 1 } }
-					);
+			const imageURL = result.secure_url;
 
-					res.status(200).json({
-						message: 'Product updated',
-						product,
-					});
-				}
+			await product.update({
+				productName,
+				description,
+				price,
+			});
+
+			// Update the corresponding ProductImage record in the database
+			await ProductImage.update(
+				{ imageURL },
+				{ where: { productID, isFront: 1 } }
 			);
+
+			res.status(200).json({
+				message: 'Product updated',
+				product,
+			});
 		} else {
 			// If no image file is uploaded, update other product details without changing the imageURL
 			await product.update({
@@ -158,8 +158,7 @@ productRouter.put('/:productID', async (req, res) => {
 	}
 });
 
-
-// Eliminar un producto antes eliminar el producto se debe eliminar el inventario y las imagenes del producto
+// Delete a product (delete the associated inventory and product images first)
 productRouter.delete('/:productID', async (req, res) => {
 	try {
 		const productID = req.params.productID;

@@ -4,53 +4,53 @@ import Product from '../models/product.models.js';
 
 const inventoryRouter = express.Router();
 
-// Obtener el inventario de un producto por su ID
+// Get the inventory of a product by its ID
 inventoryRouter.get('/product/:productID', async (req, res) => {
   try {
     const productID = req.params.productID;
 
-    // Verificar si el producto existe
+    // Check if the product exists
     const product = await Product.findByPk(productID);
 
     if (!product) {
-      return res.status(404).json({ message: 'Producto no encontrado' });
+      return res.status(404).json({ message: 'Product not found' });
     }
 
-    // Obtener el inventario asociado al producto
+    // Get the inventory associated with the product
     const inventory = await Inventory.findOne({
       where: { productID }
     });
 
     if (!inventory) {
-      return res.status(404).json({ message: 'Inventario no encontrado' });
+      return res.status(404).json({ message: 'Inventory not found' });
     }
 
     res.status(200).json({ product, inventory });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'Error al obtener el inventario del producto' });
+    res.status(500).json({ message: 'Error retrieving the product inventory' });
   }
 });
 
-// Actualizar el inventario de un producto
+// Update the inventory of a product
 inventoryRouter.put('/product/:productID', async (req, res) => {
   try {
     const productID = req.params.productID;
     const { quantity, stockMin, stockMax } = req.body;
 
-    // Verificar si el producto existe
+    // Check if the product exists
     const product = await Product.findByPk(productID);
 
     if (!product) {
-      return res.status(404).json({ message: 'Producto no encontrado' });
+      return res.status(404).json({ message: 'Product not found' });
     }
 
-    // Verificar si el inventario existe
+    // Check if the inventory exists
     let inventory = await Inventory.findOne({
       where: { productID }
     });
 
-    // Crear el inventario si no existe
+    // Create the inventory if it doesn't exist
     if (!inventory) {
       inventory = await Inventory.create({
         productID,
@@ -59,7 +59,7 @@ inventoryRouter.put('/product/:productID', async (req, res) => {
         stockMax
       });
     } else {
-      // Actualizar el inventario si ya existe
+      // Update the inventory if it already exists
       await inventory.update({
         quantity,
         stockMin,
@@ -67,10 +67,10 @@ inventoryRouter.put('/product/:productID', async (req, res) => {
       });
     }
 
-    res.status(200).json({ message: 'Inventario actualizado', inventory });
+    res.status(200).json({ message: 'Inventory updated', inventory });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'Error al actualizar el inventario del producto' });
+    res.status(500).json({ message: 'Error updating the product inventory' });
   }
 });
 

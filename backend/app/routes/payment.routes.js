@@ -5,12 +5,12 @@ import Inventory from '../models/inventory.model.js';
 
 const paymentRouter = express.Router();
 
-// Ruta para procesar el pago (http://localhost:8080/api/success)
+// Route to process the payment (http://localhost:8080/api/success)
 paymentRouter.get('/success', async (req, res) => {
 	try {
-		const { totalPrice, userID, shippingAddress } = req.query; // Utilizamos req.query en lugar de req.body para obtener los parámetros enviados desde la pasarela de pago
+		const { totalPrice, userID, shippingAddress } = req.query; // Use req.query instead of req.body to retrieve parameters sent from the payment gateway
 
-		// Actualizar el inventario restando la cantidad vendida
+		// Update the inventory by subtracting the sold quantity
 		const activeCarts = await ShoppingCart.findAll({
 			where: {
 			  userID,
@@ -26,14 +26,14 @@ paymentRouter.get('/success', async (req, res) => {
 			await inventory.decrement('quantity', { by: cart.quantity });
 		}
 
-		// Crear la orden en la base de datos
+		// Create the order in the database
 		const order = await Order.create({
 			userID,
 			totalPrice,
 			shippingAddress,
 		});
 		
-		// Si el pago es exitoso, cambiar el estado de los carritos a "Ordered" y crear la orden
+		// If the payment is successful, change the status of the carts to "Ordered" and create the order
 		await ShoppingCart.update(
 			{ cartStatus: 'Ordered' },
 			{
@@ -44,17 +44,17 @@ paymentRouter.get('/success', async (req, res) => {
 			}
 		);
 
-		// CLose the window
-		return res.status(200).json({ message: 'Pago exitoso', order });
+		// Close the window
+		return res.status(200).json({ message: 'Payment successful', order });
 	} catch (error) {
 		console.log(error);
-		return res.status(500).json({ message: 'Error al procesar el pago' });
+		return res.status(500).json({ message: 'Error processing the payment' });
 	}
 });
 
-// Ruta para cancelar el pago
+// Route to cancel the payment
 paymentRouter.get('/cancel', (req, res) => {
-	res.status(200).json({ message: 'Pago cancelado' });
+	res.status(200).json({ message: 'Payment canceled' });
 });
 
 export default paymentRouter;
