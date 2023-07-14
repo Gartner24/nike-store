@@ -15,7 +15,7 @@ const Navbar = () => {
   };
 
   // Assuming you have a variable `itemCount` that represents the number of items in the cart
-  const itemCount = 90; // Replace with your actual item count
+  const itemCount = 0; // Replace with your actual item count
 
   return (
     <div>
