@@ -15,7 +15,7 @@ import PublicRoutes from './Public.routes';
 import AdminRoutes from './Admin.routes';
 
 const AppRoutes = () => {
-	const [isAuthenticated, setisAuth] = useState(true);
+	const [isAuthenticated, setisAuth] = useState(false);
 	const [role, setRole] = useState('admin');
 	return (
 		<BrowserRouter>
