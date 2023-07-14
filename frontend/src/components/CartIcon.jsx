@@ -1,6 +1,7 @@
 import React from 'react';
 import "./css/navbar.css";
 import { FaShoppingCart } from 'react-icons/fa';
+import "./css/cartIcon.css"
 
 const CartIcon = ({ itemCount, onClick }) => {
   return (

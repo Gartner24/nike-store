@@ -47,12 +47,8 @@ const Navbar = () => {
                 <LoginIcon className="ico" />
               </Link>
             </li>
-            <li>
-              <CartIcon onClick={() => setCartOpen(true)}/>
-            </li>
           </ul>
         </nav>
-        {cartOpen && <CartWindow onClose={handleCartClose}/>}
       </header>
     </div>
     // <div className='App'>
