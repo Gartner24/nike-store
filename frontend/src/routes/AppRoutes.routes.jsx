@@ -17,7 +17,7 @@ import parseJwt from '../helpers/parseJwt';
 
 const AppRoutes = () => {
 	const [isAuthenticated, setisAuth] = useState(false);
-	const [role, setRole] = useState('admin');
+	const [role, setRole] = useState();
   
 	useEffect(() => {
 	  const token = localStorage.getItem('token');

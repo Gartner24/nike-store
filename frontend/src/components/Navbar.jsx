@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useContext } from "react";
 import "./css/navbar.css";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
@@ -9,10 +10,11 @@ import PersonIcon from "@mui/icons-material/Person";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import InfoIcon from '@mui/icons-material/Info';
 import HomeIcon from '@mui/icons-material/Home';
-import useStore from "../store/useStore";
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import { AuthContext } from "../store/AuthContext";
 
-function UserNavbar() {
-  const isAuthenticated = useStore(state => state.isAuthenticated);
+const UserNavbar = () => {
+  const { handleLogout } = useContext(AuthContext);
 
   return (
     <header className="App-menu">
@@ -37,7 +39,7 @@ function UserNavbar() {
             </Link>
           </li>
           <li>
-            <Link to="/" onClick={logout}>
+            <Link to="/" onClick={handleLogout}>
               <LogoutIcon className="ico" />
             </Link>
           </li>
@@ -48,7 +50,7 @@ function UserNavbar() {
 }
 
 const AdminNavbar = () => {
-  const isAuthenticated = useStore(state => state.isAuthenticated);
+  const { handleLogout } = useContext(AuthContext);
 
   return (
     <header className="App-menu">
@@ -78,7 +80,7 @@ const AdminNavbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/" onClick={logout}>
+            <Link to="/" onClick={handleLogout}>
               <LogoutIcon className="ico" />
             </Link>
           </li>
@@ -87,6 +89,7 @@ const AdminNavbar = () => {
     </header>
   );
 }
+
 
 const UnregisteredNavbar = () => {
   return (
@@ -120,11 +123,10 @@ const UnregisteredNavbar = () => {
       </nav>
     </header>
   );
-}
+};
 
 const Navbar = () => {
-  const isAuthenticated = useStore(state => state.isAuthenticated);
-  const isAdmin = useStore(state => state.isAdmin);
+  const { isAuthenticated, isAdmin } = useContext(AuthContext);
 
   if (isAuthenticated && isAdmin) {
     return <AdminNavbar />;
@@ -133,6 +135,6 @@ const Navbar = () => {
   } else {
     return <UnregisteredNavbar />;
   }
-}
+};
 
 export default Navbar;
