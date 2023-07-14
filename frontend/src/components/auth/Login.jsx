@@ -30,8 +30,8 @@ const Login = () => {
         if (result.token) {
           localStorage.setItem('token', result.token);
           setLoginSuccessful(true);
-          window.location.reload();
-          navigate('/home'); // Redireccionar al usuario a la página de inicio después de iniciar sesión exitosamente
+          navigate('/home'); 
+          window.location.reload();// Redireccionar al usuario a la página de inicio después de iniciar sesión exitosamente
         } else {
           setLoginSuccessful(false);
         }
