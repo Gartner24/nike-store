@@ -1,8 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import '../css/login.css';
 import { useNavigate } from 'react-router-dom';
-import { urlLogin } from '../../helpers/urls';
-import postData from '../../helpers/postData';
 import Navbar from '../Navbar';
 
 const Login = () => {
@@ -18,37 +16,32 @@ const Login = () => {
 			password: password,
 		};
 
-		fetch(urlLogin, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(data),
-		})
-			// postData(urlLogin, data)
-			.then((response) => response.json())
-			.then((result) => {
-				console.log(result.token);
-				if (result.token) {
-					localStorage.setItem('token', result.token);
-					setLoginSuccessful(true);
-					navigate('/home'); // Redireccionar al usuario a la página de inicio después de iniciar sesión exitosamente
-				} else {
-					setLoginSuccessful(false);
-				}
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	};
+    fetch('https://nike-fake-store.onrender.com/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result.token);
+        if (result.token) {
+          localStorage.setItem('token', result.token);
+          setLoginSuccessful(true);
+          window.location.reload();
+          navigate('/home'); // Redireccionar al usuario a la página de inicio después de iniciar sesión exitosamente
+        } else {
+          setLoginSuccessful(false);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-	if (loginSuccessful) {
-    return (
-      <div>
-        <Navbar />
-        <h1>Inicio de sesión exitoso</h1>
-      </div>
-    );
+  if (loginSuccessful) {
+    return null;
   }
 
 	return (
