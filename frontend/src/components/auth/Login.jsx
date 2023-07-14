@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import '../css/login.css';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar';
+import {Link} from 'react-router-dom';
 
 const Login = () => {
 	const [password, setPassword] = useState('');
@@ -65,6 +66,9 @@ const Login = () => {
 					className='custom-input'
 					type='password'
 				/>
+				<Link 
+					style={{ textDecoration: 'none', color: 'black' }}
+				to='/signup'>Register</Link>
 				<button className='custom-button' onClick={handleLogin}>
 					Login
 				</button>
