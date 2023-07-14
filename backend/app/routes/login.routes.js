@@ -9,7 +9,7 @@ const loginRouter = async (req, res) => {
 
     if (user) {
       const token = jwt.sign({ username }, "Stack", {
-        expiresIn: '3m'
+        expiresIn: '40m'
       });
       res.send({ token });
     } else {
