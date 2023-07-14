@@ -1,12 +1,13 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './css/profile.css';
 import getData from '../helpers/getData';
 import putData from '../helpers/putData';
 import { urlUsers } from '../helpers/urls';
+import parseJwt from '../helpers/parseJwt';
 
 const Profile = () => {
 	const [user, setUser] = useState({
-		userID: 1,
+		userID: '',
 		username: '',
 		password: '',
 		fullName: '',
@@ -14,7 +15,11 @@ const Profile = () => {
 		phone: '',
 		address: '',
 	});
+	const token = localStorage.getItem('token');
+	const [loading, setLoading] = useState(false);
 	const [edit, setEdit] = useState(false);
+
+	const username = parseJwt(token).username;
 
 	const handleChange = (e) => {
 		setUser({
@@ -26,25 +31,35 @@ const Profile = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setEdit(!edit);
-        const updateUser = async () => {
-            const response = await putData(`${urlUsers}/${user.userID}`, user);
-            console.log(response);
-        }
-        updateUser();
+		const updateUser = async () => {
+			const response = await putData(`${urlUsers}/${user.userID}`, user);
+			console.log(response);
+		};
+		updateUser();
 	};
 
-    useEffect(() => {
-        const getUser = async () => {
-            const response = await getData(`${urlUsers}/${user.userID}`);
-            setUser(response);
-        }
-        getUser();
-    }, []);
-    
+	useEffect(() => {
+		setLoading(true);
+		const getUser = async () => {
+			const data = await getData(`${urlUsers}/username/${username}`);
+			setUser(data);
+			setLoading(false);
+		};
+		getUser();
+	}, [username]);
+
+	if (loading) {
+		return (
+			<div className='loading'>
+				<h1>Loading...</h1>
+			</div>
+		);
+	}		
 
 	return (
 		<>
-			<div className="SectionProfile">
+
+			<div className='SectionProfile'>
 				<div className='profileContainer'>
 					<h1>Profile</h1>
 					<form onSubmit={handleSubmit}>

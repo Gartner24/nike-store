@@ -15,6 +15,7 @@ import PublicRoutes from './Public.routes';
 import AdminRoutes from './Admin.routes';
 import parseJwt from '../helpers/parseJwt';
 import Profile from '../components/Profile';
+import CartPage from '../containers/CartPage';
 
 const AppRoutes = () => {
 	const [isAuthenticated, setisAuth] = useState(false);
@@ -57,6 +58,25 @@ const AppRoutes = () => {
 						</PublicRoutes>
 					}
 				/>
+
+				<Route
+					path='/profile'
+					element={
+						<PrivateRoutes isAuth={isAuthenticated}>
+							<Profile />
+						</PrivateRoutes>
+					}
+				/>
+
+				<Route
+					path='/cart'
+					element={
+						<PrivateRoutes isAuth={isAuthenticated}>
+							<CartPage />
+						</PrivateRoutes>
+					}
+				/>
+
 				{isAuthenticated && (
 					<>
 						<Route
