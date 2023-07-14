@@ -1,5 +1,4 @@
 .carrusel img {
-    
     max-width: 500px;
     max-height: 500px;
 }
@@ -11,7 +10,12 @@
     color: chocolate;
     margin: 5%;
 }
-.title {
-    margin-left: 3%;
-    color: black;
-}
+.carousel-wrapper {
+    justify-content: left;
+    align-items: left;
+    padding: 3%;
+    /* Otros estilos necesarios */
+  }
+  
+  /* Resto de los estilos del carrusel */
+  
