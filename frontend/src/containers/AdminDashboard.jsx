@@ -89,7 +89,7 @@ const AdminDashboard = () => {
 		} catch (error) {
 			console.log(error);
 		}
-	}, [dashboardState, createProduct, editingProduct, editingInventory]);
+	}, [dashboardState, handleUpdateInventory, handleDeleteProduct, handleSubmitProduct]);
 
 	if (loading) {
 		return <h1>Loading...</h1>;
