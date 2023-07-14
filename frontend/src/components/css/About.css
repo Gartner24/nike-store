@@ -1,5 +1,7 @@
 .about-main-container{
   font-family: Georgia, 'Times New Roman', Times, serif;
+  background-color: black;
+  font-family: 'Roboto', sans-serif;
 }
 .about-video-container {
 
@@ -23,6 +25,9 @@
 .about-video{
   z-index: 0;
   max-width: 100%;
+  background-color: black;
+  opacity: 100%;
+  margin-top: 20%;
 }
 
 .about-video-overlay {
@@ -35,15 +40,31 @@
   background-color: rgba(0, 0, 0, 0.5); /* Fondo negro con transparencia */
 }
 
-.about-tittle{
+.about-title{
+  left: 10%;
   z-index: 2;
   color: white;
-  font-size: 5vh;
-  text-align: center;
+  font-size: 10vw;
+  text-align: left;
   position: absolute;
   top: 0;
   padding-top: 5%;
+  font-family: 'Bebas Neue', sans-serif;
   
+}
+@media (max-width: 500px) {
+  .about-title, .about-video {
+    position: relative;
+    display: flex;
+    font-size: 80px;
+  }
+  .about-title {
+    top: -80vh;
+    left:0%;
+  }
+  .about-video{
+    margin-top: 80vh;
+  }
 }
 /* ------------------- VISION -----------------------*/ 
 .about-vision{
@@ -52,26 +73,40 @@
   font-size: 10vh;
   align-items: center;
   transition: transform 0.3s ease-in;
-  background-color: rgb(0, 0, 0, 0.950);
+  background-color: black;
   color: white;
-
-
-}
-.about-vision:hover{
-  transform: scale(1.01);
-  cursor: pointer;
-  background-color: rgb(0, 0, 0, 0.925);
+  border-top-color: white;
+  border: 0px;
+  border-top: 5px;
+  border-style: solid;
 }
 
 .about-vision-tittle{
   text-align: center;
+  font-family: 'Bebas Neue', sans-serif;
 }
 
 .about-vision-body{
   font-size: 3vh;
   padding-left: 5%;
 }
-
+@media (max-width: 500px) {
+  .about-vision-tittle{
+    text-align: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 70%;
+  }
+  .about-vision-body{
+    font-size: 30%;
+  }
+}
+.photoGirl {
+  background-color: black;
+  padding: 5%;
+  width: 50%;
+  display: flex;
+  margin: 0 auto;
+}
 /* ------------------- MISSION -----------------------*/ 
 .about-mission{
   display: flex;
@@ -84,20 +119,17 @@
   color: white;
 
 }
-.about-mission:hover{
-  transform: scale(1.01);
-  cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.950);
-}
 
 .about-mission-tittle{
   text-align: center;
   padding-right: 2%;
+  font-family: 'Bebas Neue', sans-serif;
 }
 
 .about-mission-body{
   font-size: 3vh;
   padding-right: 2%;
+  font-family: 'Roboto', sans-serif;
 }
 
 #video2{
@@ -114,4 +146,32 @@
     opacity: 1; /* Final de la animación con opacidad 1 */
     transform: translateY(0); /* Puedes ajustar la animación de desplazamiento vertical si lo deseas */
   }
+}
+@keyframes fade-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fade-in-left {
+  animation: fade-in-left 1s ease forwards;
+}
+@keyframes fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fade-in-right {
+  animation: fade-in-right 1s ease forwards;
 }
