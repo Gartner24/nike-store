@@ -37,8 +37,14 @@ const CartPage = () => {
 			userID: user.userID,
 			shippingAddress: user.address,
 		});
-        // response.data.url enlace de pago open in a new tab
-        window.open(response.data.url, '_blank');
+		// response.data.url enlace de pago open in a new tab
+		window.open(response.data.url, '_blank');
+	};
+
+	const handleDeleteCart = async (cartId) => {
+		await axios.delete(`${urlCart}/${cartId}`);
+		const newCart = cart.filter((item) => item.cartID !== cartId);
+		setCart(newCart);
 	};
 
 	useEffect(() => {
@@ -51,36 +57,46 @@ const CartPage = () => {
 		getUser();
 	}, [username]);
 
-	useEffect(() => {
-		setLoading(true);
-		// user.userID is null
-		if (user.userID) {
-			const getCart = async () => {
-				const data = await axios.get(`${urlCart}/user/${user.userID}`);
-				setCart(data.data.cartItems);
-				console.log(data.data.cartItems);
-			};
-			getCart();
-			const getProducts = async () => {
-				const data = await getData(urlProducts);
-				setProducts(data);
-			};
-			getProducts();
-			const getImages = async () => {
-				const data = await getData(urlImages);
-				setImages(data);
-			};
-			getImages();
-			const setProductsFiltered = () => {
-				const productsFiltered = products.filter((product) => {
-					return cart.find((item) => item.productID === product.id);
-				});
-				setProducts(productsFiltered);
-			};
-			setProductsFiltered();
-		}
-		setLoading(false);
-	}, [user]);
+useEffect(() => {
+    setLoading(true);
+    // user.userID is null
+    if (user.userID) {
+        const getCart = async () => {
+            const data = await axios.get(`${urlCart}/user/${user.userID}`);
+            setCart(data.data.cartItems);
+            console.log(data.data.cartItems);
+        };
+        getCart();
+        const getProducts = async () => {
+            const data = await getData(urlProducts);
+            setProducts(data);
+        };
+        getProducts();
+        const getImages = async () => {
+            const data = await getData(urlImages);
+            setImages(data);
+        };
+        getImages();
+        
+    setLoading(false)
+    }
+}, [user]);
+
+useEffect(() => {
+    if (cart.length > 0) {
+        const productsFiltered = products.filter((product) => {
+            return cart.filter((item) => {
+                return (
+                    item.productID === product.productID &&
+                    item.cartStatus === 'Active'
+                );
+            });
+        });
+        console.log(productsFiltered);
+        setProducts(prevProducts => productsFiltered);
+        
+    }
+}, [cart]);
 
 	if (loading) {
 		return (
@@ -101,16 +117,23 @@ const CartPage = () => {
 							<div key={product.productID} className='cart-item'>
 								<img
 									// src={images.find((image) => image.productID === product.productID).url}
-									alt={product.name}
+									alt={product.productName}
 								/>
 								<div
 									className='cart-
                                     item-info'
 								>
-									<h3>{product.name}</h3>
+									<h3>{product.productName}</h3>
 									<p>{product.description}</p>
 									<p>${product.price}</p>
 								</div>
+								<button
+									onClick={() =>
+										handleDeleteCart(product.cartID)
+									}
+								>
+									Delete
+								</button>
 							</div>
 						);
 					})}
