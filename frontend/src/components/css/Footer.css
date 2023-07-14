@@ -31,11 +31,7 @@
   }
   li {
     text-decoration: none;
-<<<<<<< HEAD
-    font-size: 10px;/**/
-=======
     font-size: 15px;/**/
->>>>>>> ad5d32bea79b580c7dfc34e78168cbbcbc25bf24
 }
   
   .footer-developers a {
@@ -53,12 +49,11 @@
     margin-top: 8px;
   }
   
-  footer {
+  .footer {
     background-color: black;
-<<<<<<< HEAD
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
   }
   
-  
-=======
-  }
->>>>>>> ad5d32bea79b580c7dfc34e78168cbbcbc25bf24

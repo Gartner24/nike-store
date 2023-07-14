@@ -37,7 +37,7 @@ const ProductList = () => {
           <div className="info-product">
             <h2>{product.productName}</h2>
             <p className="price">${product.price}</p>
-            <button>Añadir al carrito</button>
+            <button>Show More</button>
           </div>
         </div>
       ))}
@@ -46,3 +46,5 @@ const ProductList = () => {
 };
 
 export default ProductList;
+
+

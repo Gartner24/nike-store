@@ -104,3 +104,35 @@ const Product = () => {
 };
 
 export default Product;
+
+// import React, { useEffect, useState } from 'react';
+// import { useParams, useHistory } from 'react-router-dom';
+// import './css/Product.css';
+// import URLS from '../helpers/urls';
+// import getData from '../helpers/getData';
+
+// const urlCart = "https://nike-fake-store.onrender.com/api/cart";
+
+// const Product = () => {
+//   const { id } = useParams();
+//   const history = useHistory();
+//   const [product, setProduct] = useState(null);
+//   const dataProduct = getData(`${URLS.urlProduct}/${id}`);
+//   console.log(dataProduct);
+
+//   return (
+//     <div className="product-container">
+//       {product ? (
+//         <div>
+//           <h2>{product.name}</h2>
+//           <p>Price: ${product.price}</p>
+//           <button onClick={handleAddToCart}>Add to Cart</button>
+//         </div>
+//       ) : (
+//         <p>Loading...</p>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default Product;

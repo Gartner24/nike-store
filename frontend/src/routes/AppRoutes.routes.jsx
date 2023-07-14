@@ -14,6 +14,7 @@ import PrivateRoutes from './Private.routes';
 import PublicRoutes from './Public.routes';
 import AdminRoutes from './Admin.routes';
 import Profile from '../components/Profile';
+import CartPage from '../components/CartPage';
 
 const AppRoutes = () => {
 	const [isAuthenticated, setisAuth] = useState(true);
@@ -58,7 +59,7 @@ const AppRoutes = () => {
 					</PrivateRoutes>
 				} />
 
-				<Route path='*' element={<Error404 />} />
+				<Route path='*' element={<CartPage />} />
 
 			</Routes>
 

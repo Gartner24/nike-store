@@ -8,6 +8,13 @@ const ProductList = () => {
 	const [products, setProducts] = useState([]);
 	const [imageUrls, setImageUrls] = useState([]);
 
+	const getImage = async (id) => {
+		const data = await getData(urlImages + id).then(
+			(data) => data[0].imageURL
+		);
+		return data;
+	};
+
 	useEffect(() => {
 		getData(urlProducts).then((data) => {
 			setProducts(data);
@@ -25,8 +32,10 @@ const ProductList = () => {
 					<img src={imageUrls[index]} alt={product.nameProduct} />
 					<div className='info-product'>
 						<h2>{product.productName}</h2>
-						<p className="price">${product.price}</p>
-						<button>Añadir al carrito</button>
+						<p className='price'>${product.price}</p>
+						<Link to='/store'>
+							<button>Show more...</button>
+						</Link>
 					</div>
 				</div>
 			))}
@@ -35,3 +44,5 @@ const ProductList = () => {
 };
 
 export default ProductList;
+
+
