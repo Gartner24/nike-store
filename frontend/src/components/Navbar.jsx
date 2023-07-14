@@ -8,12 +8,12 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import InfoIcon from '@mui/icons-material/Info';
+import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
 import HomeIcon from '@mui/icons-material/Home';
 import useStore from "../store/useStore";
 
-function UserNavbar() {
-  const isAuthenticated = useStore(state => state.isAuthenticated);
 
+function UserNavbar() {
   return (
     <header className="App-menu">
       <Link to="/">
@@ -37,7 +37,7 @@ function UserNavbar() {
             </Link>
           </li>
           <li>
-            <Link to="/" onClick={logout}>
+            <Link to="/">
               <LogoutIcon className="ico" />
             </Link>
           </li>
@@ -48,8 +48,6 @@ function UserNavbar() {
 }
 
 const AdminNavbar = () => {
-  const isAuthenticated = useStore(state => state.isAuthenticated);
-
   return (
     <header className="App-menu">
       <Link to="/">
@@ -68,8 +66,13 @@ const AdminNavbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/admin-dashboard">
+            <Link to="/profile">
               <PersonIcon className="ico" />
+            </Link>
+          </li>
+          <li>
+            <Link to="/admin-dashboard">
+              <SpaceDashboardIcon className="ico" />
             </Link>
           </li>
           <li>
@@ -78,7 +81,7 @@ const AdminNavbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/" onClick={logout}>
+            <Link to="/" >
               <LogoutIcon className="ico" />
             </Link>
           </li>
@@ -123,8 +126,8 @@ const UnregisteredNavbar = () => {
 }
 
 const Navbar = () => {
-  const isAuthenticated = useStore(state => state.isAuthenticated);
-  const isAdmin = useStore(state => state.isAdmin);
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const [isAdmin, setIsAdmin] = React.useState(false);
 
   if (isAuthenticated && isAdmin) {
     return <AdminNavbar />;

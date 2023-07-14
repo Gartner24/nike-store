@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import 'react-multi-carousel/lib/styles.css';
 import './css/Carrusel.css';
+
 import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
-import { urlProducts, urlImages } from '../helpers/urls';
 import { useNavigate } from 'react-router-dom';
+import 'react-multi-carousel/lib/styles.css';
+
+import { urlProducts, urlImages } from '../helpers/urls';
+
 import getData from '../helpers/getData';
 
 function Carrusel() {
@@ -16,8 +19,8 @@ function Carrusel() {
     return data;
   };
   
-
   useEffect(() => {
+
     const fetchProducts = async () => {
       const productsData = await getData(urlProducts);
       setProducts(productsData);
@@ -49,7 +52,7 @@ function Carrusel() {
 
   const handleClick = (index) => {
     const id = products[index].id;
-    navigate(`/product/${id}`);
+    navigate(`/product/${index}`);
   };
 
   return (
@@ -58,7 +61,7 @@ function Carrusel() {
       <Carousel responsive={responsive} ssr infinite centerMode keyBoardControl>
         {products.map((product, index) => (
           <div className="slide" key={index}>
-            <img src={imageUrls[index]} alt={product.nameProduct} onClick={() => handleClick(index)} />
+            <img src={imageUrls[index]} alt={product.nameProduct} onClick={() => handleClick(index+1)} />
           </div>
         ))}
       </Carousel>
