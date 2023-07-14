@@ -84,16 +84,21 @@ const AdminDashboard = () => {
 		<>
 			<div className='dashboardContainer'>
 				<h1>Dashboard</h1>
-				{dashboardState === 0 && (
-					<>
-						<button onClick={() => setDashboardState(1)}>
-							Productos
-						</button>
-						<button onClick={() => setDashboardState(2)}>
-							Inventario
-						</button>
-					</>
-				)}
+				<>
+					<button onClick={() => setDashboardState(1)}>
+						Productos
+					</button>
+					<button onClick={() => setDashboardState(2)}>
+						Inventario
+					</button>
+					{
+						dashboardState !== 0 && (
+							<button onClick={() => setDashboardState(0)}>
+								Regresar
+							</button>
+						)
+					}
+				</>
 
 				{dashboardState === 1 && (
 					<>
