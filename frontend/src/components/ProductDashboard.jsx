@@ -10,6 +10,7 @@ const ProductDashboard = ({
     handleSubmit,
     handleDelete,
 }) => {
+
 	return (
 		<>
 			<h2>Productos</h2>

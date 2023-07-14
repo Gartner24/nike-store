@@ -2,18 +2,23 @@ import React from 'react';
 
 const InventoryDashboard = ({
 	products,
-	images,
 	inventory,
 	editingInventory,
 	setEditingInventory,
 	handleUpdateInventory,
 }) => {
-	// Inventory Dashboard variables
-	// 		productID: product.productID,
-	// 		quantity: 1,
-	// 		stockMin: 0,
-	// 		stockMax: 200,
-
+  // const handleUpdateInventory = async (e, productId) => {
+	// 	e.preventDefault();
+	// 	// Update the product using the editingProduct state
+	// 	const updatedInventory = {
+	// 		...editingInventory,
+	// 		id: productId,
+	// 	};
+	// 	await putData(urlInventory + '/product/' + productId, updatedInventory);
+	// 	// Clear the editing state and refresh the products
+	// 	setEditingInventory(null);
+	// 	getProducts();
+	// };
 	return (
 		<>
 			<h1>Inventory Dashboard</h1>
@@ -23,7 +28,6 @@ const InventoryDashboard = ({
 					<tr>
 						<th>Id</th>
 						<th>Name</th>
-						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -31,13 +35,6 @@ const InventoryDashboard = ({
 						<tr key={product.productID}>
 							<td>{product.productID}</td>
 							<td>{product.productName}</td>
-							<td>
-								<button
-									onClick={() => setEditingInventory(product)}
-								>
-									Edit
-								</button>
-							</td>
 						</tr>
 					))}
 				</tbody>
@@ -95,8 +92,8 @@ const InventoryDashboard = ({
 							</td>
 							<td>
 								<button
-									onClick={() =>
-										handleUpdateInventory(editingInventory)
+                  onClick={(e) =>
+                    handleUpdateInventory(e, editingInventory.productID)
 									}
 								>
 									Update
@@ -104,6 +101,24 @@ const InventoryDashboard = ({
 							</td>
 						</tr>
 					)}
+					{!editingInventory &&
+						inventory.map((inventory) => (
+							<tr key={inventory.productID}>
+								<td>{inventory.productID}</td>
+								<td>{inventory.quantity}</td>
+								<td>{inventory.stockMin}</td>
+								<td>{inventory.stockMax}</td>
+								<td>
+									<button
+										onClick={() =>
+											setEditingInventory(inventory)
+										}
+									>
+										Edit
+									</button>
+								</td>
+							</tr>
+						))}
 				</tbody>
 			</table>
 		</>
