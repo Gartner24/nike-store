@@ -94,7 +94,6 @@ useEffect(() => {
         });
         console.log(productsFiltered);
         setProducts(prevProducts => productsFiltered);
-        
     }
 }, [cart]);
 

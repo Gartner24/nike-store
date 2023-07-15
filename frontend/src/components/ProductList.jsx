@@ -7,7 +7,8 @@ import { Link } from 'react-router-dom';
 const ProductList = () => {
 	const [products, setProducts] = useState([]);
 	const [imageUrls, setImageUrls] = useState([]);
-
+	const [loading, setLoading] = useState(true);
+	const [firstThreeProducts, setFirstThreeProducts] = useState([]);
 	const getImage = async (id) => {
 		const data = await getData(urlImages + id).then(
 			(data) => data[0].imageURL
@@ -16,16 +17,24 @@ const ProductList = () => {
 	};
 
 	useEffect(() => {
-		getData(urlProducts).then((data) => {
+		setLoading(true);
+		getData(urlProducts)
+		.then((data) => {
 			setProducts(data);
 			const urls = data.map((product) => getImage(product.productID));
 			Promise.all(urls).then((urls) => setImageUrls(urls));
-		});
+			setFirstThreeProducts(data.slice(0, 3));
+			setLoading(false);
+		})
+		.catch((err) => console.log(err));
 	}, []);
 
-	const firstThreeProducts = products.slice(0, 3);
+	if (loading) {
+		return <h1>Loading...</h1>;
+	}
 
 	return (
+		
 		<div className='container-items'>
 			{firstThreeProducts.map((product, index) => (
 				<div className='item' key={product.productID}>
